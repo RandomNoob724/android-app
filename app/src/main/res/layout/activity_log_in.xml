@@ -6,4 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".LogInActivity">
 
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:hint="@string/username"
+        android:gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:hint="@string/password"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/login_loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/login"
+        />
+
+    <Button
+        android:id="@+id/login_forgotPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_loginButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/forgotPassword"
+        />
+
+    <Button
+        android:id="@+id/login_google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_forgotPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Google"
+        />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
