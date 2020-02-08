@@ -32,7 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/main_calendar_view"
         app:layout_constraintBottom_toTopOf="@id/main_list_view"/>
 
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
