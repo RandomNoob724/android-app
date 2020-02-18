@@ -35,6 +35,7 @@ class WorkoutRepository {
         exercises.find{
             it.id == id
         }
+
     fun deleteExerciseById(id: Int) =
         exercises.remove(
             exercises.find {

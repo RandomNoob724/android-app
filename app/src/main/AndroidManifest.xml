@@ -16,7 +16,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".LogInActivity" />
-        <activity android:name=".SignIn" />
+        <activity android:name=".ViewExercise"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

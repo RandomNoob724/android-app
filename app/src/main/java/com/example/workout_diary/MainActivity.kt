@@ -3,6 +3,7 @@ package com.example.workout_diary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,5 +21,12 @@ class MainActivity : AppCompatActivity() {
             android.R.id.text1,
             workoutRepository.getAllExercises()
         )
+
+        todaysActivities.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val exerciseItem = todaysActivities.adapter.getItem(position) as Exercise
+            val intent = Intent(this, ViewExercise::class.java)
+            intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.id)
+            startActivity(intent)
+        }
     }
 }
