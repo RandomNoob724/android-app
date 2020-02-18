@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "48107737666",
+    "firebase_url": "https://workout-diary-ae632.firebaseio.com",
+    "project_id": "workout-diary-ae632",
+    "storage_bucket": "workout-diary-ae632.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48107737666:android:6997b84fd5224c6b8593db",
+        "android_client_info": {
+          "package_name": "com.example.workout_diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48107737666-3ir8djmcmmhk8f45j1brh1h1m09rt8ra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBumLxqPtCN1bOWcdcmQ9_Uh2sPrrDXreo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48107737666-3ir8djmcmmhk8f45j1brh1h1m09rt8ra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
