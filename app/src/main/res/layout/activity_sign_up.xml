@@ -44,6 +44,7 @@
         android:layout_marginStart="30dp"
         android:hint="@string/password"
         android:gravity="center"
+        android:inputType="textPassword"
         />
 
     <EditText
@@ -57,6 +58,7 @@
         android:layout_marginEnd="30dp"
         android:hint="@string/passwordConfirm"
         android:gravity="center"
+        android:inputType="textPassword"
         />
 
     <RadioGroup
@@ -117,7 +119,19 @@
         android:calendarViewShown="false"
         />
 
+    <TextView
+        android:id="@+id/signup_validation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/signup_datePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        />
+
     <Button
+        android:id="@+id/signup_createAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
