@@ -30,6 +30,7 @@ class SignUpActivity : AppCompatActivity() {
         var usernameValidationChecker = false
         var emailValidationChecker = false
         var passwordValidationChecker = false
+        var genderValidationChecker = false
 
         inputUsername.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable){}
@@ -40,16 +41,16 @@ class SignUpActivity : AppCompatActivity() {
                 if(inputUsername.text.trim().length < 2){
                     validationText.text = "Username to short"
                     usernameValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else if(inputUsername.text.trim().length > 12){
                     validationText.text = "Username to long"
                     usernameValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else{
                     usernameValidationChecker = true
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
             }
         })
@@ -63,11 +64,11 @@ class SignUpActivity : AppCompatActivity() {
                 if(!android.util.Patterns.EMAIL_ADDRESS.matcher(inputEmail.text).matches()){
                     validationText.text = "Invalid email"
                     emailValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else{
                     emailValidationChecker = true
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
             }
         })
@@ -78,19 +79,19 @@ class SignUpActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(inputPassword.text.length < 6){
+                if(inputPassword.text.length < 5){
                     validationText.text = "Password too short"
                     passwordValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
                     validationText.text = "Passwords not matching"
                     passwordValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else{
                     passwordValidationChecker = true
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
             }
         })
@@ -104,11 +105,11 @@ class SignUpActivity : AppCompatActivity() {
                 if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
                     validationText.text = "Passwords not matching"
                     passwordValidationChecker = false
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
                 else{
                     passwordValidationChecker = true
-                    checkAllTextWatchers(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, createButton,validationText)
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
                 }
             }
         })
@@ -116,6 +117,14 @@ class SignUpActivity : AppCompatActivity() {
         radioGroup.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { group, checkedId ->
                 val radio: RadioButton = findViewById(checkedId)
+
+                if(radioGroup.checkedRadioButtonId == -1){
+                    genderValidationChecker = false
+                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                }
+                else{
+                    genderValidationChecker = true
+                }
             }
         )
 
@@ -141,9 +150,9 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    fun checkAllTextWatchers(usernameValidator: Boolean, emailValidator: Boolean, passwordValidator: Boolean, createButton: Button,validationText: TextView){
-        Log.d("username",usernameValidator.toString() + " email " + emailValidator.toString() + " password " + passwordValidator.toString())
-        if(usernameValidator && emailValidator && passwordValidator){
+    fun checkAllValidators(usernameValidator: Boolean, emailValidator: Boolean, passwordValidator: Boolean, genderValidator: Boolean, createButton: Button, validationText: TextView){
+        Log.d("username",usernameValidator.toString() + " email " + emailValidator.toString() + " password " + passwordValidator.toString() + " gender " + genderValidator.toString())
+        if(usernameValidator && emailValidator && passwordValidator && genderValidator){
             createButton.isEnabled = true
             createButton.isClickable = true
             validationText.text = ""
