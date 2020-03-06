@@ -3,14 +3,16 @@ package com.example.workout_diary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var drawer: DrawerLayout
 
@@ -23,27 +25,27 @@ class MainActivity : AppCompatActivity() {
 
         drawer = findViewById(R.id.drawer_layout)
 
+        val navigationView = this.findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+        navigationView.setCheckedItem(R.id.nav_home)
+
         val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+    }
 
-
-        val mainCalendarView = this.findViewById<CalendarView>(R.id.main_calendar_view)
-        val todaysActivities = this.findViewById<ListView>(R.id.main_list_view)
-
-        todaysActivities.adapter = ArrayAdapter<Exercise>(
-            this,
-            android.R.layout.simple_list_item_1,
-            android.R.id.text1,
-            workoutRepository.getAllExercises()
-        )
-
-        todaysActivities.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val exerciseItem = todaysActivities.adapter.getItem(position) as Exercise
-            val intent = Intent(this, ViewExercise::class.java)
-            intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.id)
-            startActivity(intent)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_your_week -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, YourWeekFragment()).commit()
+            }
+            R.id.nav_home -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+            }
         }
+        return true
     }
 
     override fun onBackPressed() {

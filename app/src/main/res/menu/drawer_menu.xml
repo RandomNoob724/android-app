@@ -11,7 +11,7 @@
             android:icon="@drawable/ic_plus_24px"
             android:title="Profile"/>
         <item
-            android:id="@+id/nav_your_day"
+            android:id="@+id/nav_your_week"
             android:icon="@drawable/ic_plus_24px"
             android:title="Your day"/>
     </group>
