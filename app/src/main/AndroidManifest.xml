@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ConfigureWorkoutActivity"></activity>
-        <activity android:name=".YourWeekActivity" />
         <activity android:name=".YourDayActivity" />
+        <activity android:name=".ViewWorkout"/>
         <activity android:name=".ProfileSettingsActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />

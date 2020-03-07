@@ -25,15 +25,15 @@ class YourWeekFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_your_week, container,false)
         val todaysActivities = view.findViewById<ListView>(R.id.main_list_view)
 
-        todaysActivities.adapter = ArrayAdapter<Exercise>(
+        todaysActivities.adapter = ArrayAdapter<Workout>(
             view.context,
             android.R.layout.simple_list_item_1,
             android.R.id.text1,
-            workoutRepository.getAllExercises()
+            workoutRepository.getAllWorkouts()
         )
 
         todaysActivities.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id ->
-            val exerciseItem = todaysActivities.adapter.getItem(position) as Exercise
+            val exerciseItem = todaysActivities.adapter.getItem(position) as Workout
             val intent = Intent(context, ViewExercise::class.java)
             intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.id)
             startActivity(intent)

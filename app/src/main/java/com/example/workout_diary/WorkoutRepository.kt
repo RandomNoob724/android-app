@@ -1,106 +1,53 @@
 package com.example.workout_diary
 
 val workoutRepository = WorkoutRepository().apply {
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
+    addWorkout(
+        title = "push",
+        description = "pushworkout",
+        listOfExercises = exerciseRepository.getAllExercises()
     )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
+    addWorkout(
+        title = "pull",
+        description = "pullworkout",
+        listOfExercises = exerciseRepository.getAllExercises()
     )
 }
 
 class WorkoutRepository {
-    private val exercises = mutableListOf<Exercise>()
+    private val workouts = mutableListOf<Workout>()
 
-    fun addExercise(title: String, description: String): Int {
+    fun addWorkout(title: String, description: String, listOfExercises: MutableList<Exercise>): Int {
         val id: Int = when {
-            exercises.count() == 0 -> 1
-            else -> exercises.last().id+1
+            workouts.count() == 0 -> 1
+            else -> workouts.last().id+1
         }
-        exercises.add(
-            Exercise(
+        workouts.add(
+            Workout(
                 id,
                 title,
-                description
+                description,
+                listOfExercises
             )
         )
         return id
     }
 
-    fun getAllExercises() = exercises
+    fun getAllWorkouts() = workouts
 
-    fun getExerciseById(id: Int) =
-        exercises.find{
+    fun getWorkoutById(id: Int) =
+        workouts.find{
             it.id == id
         }
 
-    fun deleteExerciseById(id: Int) =
-        exercises.remove(
-            exercises.find {
+    fun deleteWorkoutById(id: Int) =
+        workouts.remove(
+            workouts.find {
                 it.id == id
             }
         )
 
-    fun updateExerciseById(id: Int, newTitle: String, newDescription: String) =
-        getExerciseById(id)?.run {
+    fun updateWorkoutById(id: Int, newTitle: String, newDescription: String, listOfExercises: MutableList<Exercise>) =
+        getWorkoutById(id)?.run {
             title = newTitle
             description = newDescription
         }
