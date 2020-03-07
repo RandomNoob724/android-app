@@ -12,9 +12,6 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 
 class HomeFragment: Fragment() {
-    companion object {
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

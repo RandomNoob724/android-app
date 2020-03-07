@@ -20,7 +20,7 @@ class ViewExercise : AppCompatActivity(){
 
         val exerciseId = intent.getIntExtra(EXERCISE_ID, 89237)
 
-        val exerciseItem = workoutRepository.getExerciseById(1)
+        val exerciseItem = workoutRepository.getExerciseById(exerciseId)
         Log.d("logged", exerciseItem.toString())
         if(exerciseItem != null){
             exerciseTitle.text = exerciseItem.title

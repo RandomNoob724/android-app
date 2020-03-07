@@ -9,6 +9,62 @@ val workoutRepository = WorkoutRepository().apply {
         title = "Push ups",
         description = "Just lay down and push yourself up from the ground"
     )
+    addExercise(
+        title="iosjiofiosjdf",
+        description = "odfijsfdjiosjdfioj"
+    )
+    addExercise(
+        title = "iosdjfiosjdfojsf",
+        description = "iosjdfijisdjfoisjdf"
+    )
+    addExercise(
+        title = "Bench press",
+        description = "Just lay down and push the bar up"
+    )
+    addExercise(
+        title = "Push ups",
+        description = "Just lay down and push yourself up from the ground"
+    )
+    addExercise(
+        title="iosjiofiosjdf",
+        description = "odfijsfdjiosjdfioj"
+    )
+    addExercise(
+        title = "iosdjfiosjdfojsf",
+        description = "iosjdfijisdjfoisjdf"
+    )
+    addExercise(
+        title = "Bench press",
+        description = "Just lay down and push the bar up"
+    )
+    addExercise(
+        title = "Push ups",
+        description = "Just lay down and push yourself up from the ground"
+    )
+    addExercise(
+        title="iosjiofiosjdf",
+        description = "odfijsfdjiosjdfioj"
+    )
+    addExercise(
+        title = "iosdjfiosjdfojsf",
+        description = "iosjdfijisdjfoisjdf"
+    )
+    addExercise(
+        title = "Bench press",
+        description = "Just lay down and push the bar up"
+    )
+    addExercise(
+        title = "Push ups",
+        description = "Just lay down and push yourself up from the ground"
+    )
+    addExercise(
+        title="iosjiofiosjdf",
+        description = "odfijsfdjiosjdfioj"
+    )
+    addExercise(
+        title = "iosdjfiosjdfojsf",
+        description = "iosjdfijisdjfoisjdf"
+    )
 }
 
 class WorkoutRepository {
