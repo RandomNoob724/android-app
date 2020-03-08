@@ -1,5 +1,6 @@
 package com.example.workout_diary
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -7,13 +8,21 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 import org.w3c.dom.Text
 
 class SignUpActivity : AppCompatActivity() {
 
+    private var usernameValidationChecker = false
+    private var emailValidationChecker = false
+    private var passwordValidationChecker = false
+    private var genderValidationChecker = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+
 
         val createButton = findViewById<Button>(R.id.signup_createAccount)
         createButton.isClickable = false
@@ -26,11 +35,6 @@ class SignUpActivity : AppCompatActivity() {
         val inputPassword = findViewById<EditText>(R.id.signup_password)
         val inputConfirmPassword = findViewById<EditText>(R.id.signup_passwordConfirm)
         val validationText = findViewById<TextView>(R.id.signup_validation)
-
-        var usernameValidationChecker = false
-        var emailValidationChecker = false
-        var passwordValidationChecker = false
-        var genderValidationChecker = false
 
         inputUsername.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable){}
@@ -79,7 +83,7 @@ class SignUpActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(inputPassword.text.length < 5){
+                if(inputPassword.text.toString().length < 5){
                     validationText.text = "Password too short"
                     passwordValidationChecker = false
                     checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
@@ -139,19 +143,24 @@ class SignUpActivity : AppCompatActivity() {
 
             val selectedDate = "$day/$month/$year"
 
-            val user = hashMapOf(
-                "username" to inputUsername.text.toString().trim(),
-                "email" to inputEmail.text.toString(),
-                "password" to inputPassword.text.toString(),
-                "gender" to radio.text,
-                "dateOfBirth" to selectedDate
-            )
+            val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate)
             FirebaseDb.instance.addUser(user)
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra(ProfileActivity.EXTRA_USERNAME, inputUsername.toString())
         }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        usernameValidationChecker = false
+        emailValidationChecker = false
+        passwordValidationChecker = false
+        genderValidationChecker = false
     }
 
     fun checkAllValidators(usernameValidator: Boolean, emailValidator: Boolean, passwordValidator: Boolean, genderValidator: Boolean, createButton: Button, validationText: TextView){
-        Log.d("username",usernameValidator.toString() + " email " + emailValidator.toString() + " password " + passwordValidator.toString() + " gender " + genderValidator.toString())
         if(usernameValidator && emailValidator && passwordValidator && genderValidator){
             createButton.isEnabled = true
             createButton.isClickable = true
@@ -163,6 +172,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+
 }
 
 
