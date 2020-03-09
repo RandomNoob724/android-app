@@ -9,22 +9,27 @@ class Authentication {
         val instance = Authentication()
     }
     private var activeUser: User = User()
-    private var isAuthenticated: String? = null
 
     fun getUserInfo(): User?{
         return activeUser
     }
 
     fun setActiveUserAtCreation(user: User?){
-        UserRepository.instance.setActiveUserAtCreation(user!!.email, user.password, user.gender, user.dateOfBirth, user.authKey, activeUser)
+        UserRepository.instance.setActiveUserAtCreation(user!!.email, user.password, user.gender, user.dateOfBirth, activeUser)
         Log.d("activeUser", this.activeUser.toString())
     }
 
-    fun setAuthenticated(key: String){
-        this.isAuthenticated = key
+    fun getAuthenticated(): String?{
+        return activeUser.authKey
     }
 
+    fun setAuthenticated(key: String?){
+        
+    }
 
+    fun getPassword(): String?{
+        return activeUser.password
+    }
 
 
 }

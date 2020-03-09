@@ -6,12 +6,11 @@ class UserRepository {
         val instance = UserRepository()
     }
 
-    fun setActiveUserAtCreation(newEmail: String?, newPassword: String?, newGender: String?, newDateOfBirth: String?, newAuthKey: String?, user: User){
+    fun setActiveUserAtCreation(newEmail: String?, newPassword: String?, newGender: String?, newDateOfBirth: String?, user: User){
         user.email = newEmail
         user.password = newPassword
         user.gender = newGender
         user.dateOfBirth = newDateOfBirth
-        user.authKey = newAuthKey
     }
 
 }
