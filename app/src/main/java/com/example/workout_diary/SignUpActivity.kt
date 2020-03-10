@@ -145,8 +145,9 @@ class SignUpActivity : AppCompatActivity() {
 
             val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate)
             FirebaseDb.instance.addUser(user)
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra(ProfileActivity.EXTRA_USERNAME, inputUsername.toString())
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
+            startActivity(intent)
         }
 
     }

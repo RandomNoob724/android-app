@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileFragment"/>
         <activity android:name=".ConfigureWorkoutActivity" />
         <activity android:name=".YourWeekFragment" />
         <activity android:name=".YourDayActivity" />
         <activity android:name=".ViewWorkout"/>
         <activity android:name=".ProfileSettingsActivity" />
-        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".ViewExercise"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

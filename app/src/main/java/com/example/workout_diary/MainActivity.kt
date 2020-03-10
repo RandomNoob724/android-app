@@ -14,6 +14,10 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        val EXTRA_USERNAME = "USERNAME"
+    }
+
     lateinit var drawer: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +47,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_home -> {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+            }
+            R.id.nav_profile -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment()).commit()
             }
         }
         return true
