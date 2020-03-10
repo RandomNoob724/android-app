@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class SignInActivity : AppCompatActivity() {
+import java.io.File
+
+open class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,13 +17,19 @@ class SignInActivity : AppCompatActivity() {
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
 
-        signInButton.setOnClickListener{
+        signInButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        logInButton.setOnClickListener{
+        logInButton.setOnClickListener {
             startActivity(Intent(this, LogInActivity::class.java))
+        }
+
+        skipLoginButton.setOnClickListener {
+            FirebaseDb.instance.getUserFromCache()
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }
 }
+

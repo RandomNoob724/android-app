@@ -10,8 +10,9 @@ import android.widget.*
 import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import org.w3c.dom.Text
+import java.io.File
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(){
 
     private var usernameValidationChecker = false
     private var emailValidationChecker = false
@@ -21,8 +22,6 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-
 
         val createButton = findViewById<Button>(R.id.signup_createAccount)
         createButton.isClickable = false
@@ -146,7 +145,6 @@ class SignUpActivity : AppCompatActivity() {
             val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate)
             FirebaseDb.instance.addUser(user)
 
-
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
             startActivity(intent)
@@ -178,5 +176,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 }
+
+
 
 

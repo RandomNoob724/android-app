@@ -2,6 +2,7 @@ package com.example.workout_diary
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 
 class FirebaseDb{
@@ -21,6 +22,7 @@ class FirebaseDb{
         userRef.addOnCompleteListener{task ->
             if(task.isSuccessful) {
                 Authentication.instance.setActiveUser(task.result?.toObject(User::class.java))
+                Authentication.instance.setAuthKey(username)
             }
             else{
                 Log.d("Error: ", task.exception.toString())
@@ -37,6 +39,22 @@ class FirebaseDb{
             "goalWeight", user.goalWeight,
             "height", user.height
         )
+    }
+
+    fun getUserFromCache(){
+        val userRef = db.collection("users")
+        val source = Source.CACHE
+
+        userRef.get(source).addOnCompleteListener{task ->
+            if(task.isSuccessful){
+                var list = task.result?.toObjects(User::class.java)
+                Log.d("length users in cache",list!!.toString())
+                Authentication.instance.setActiveUser(list!![0])
+            }
+            else{
+                Log.d("Error: ", task.exception.toString())
+            }
+        }
     }
 
 }

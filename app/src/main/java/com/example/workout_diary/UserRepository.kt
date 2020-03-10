@@ -6,7 +6,7 @@ class UserRepository {
         val instance = UserRepository()
     }
 
-    fun setActiveUser(newEmail: String?, newPassword: String?, newGender: String?, newDateOfBirth: String?, user: User){
+    fun setActiveUser(newEmail: String?, newPassword: String?, newGender: String?, newDateOfBirth: String?, newFirstName: String?, newLastName: String?, newWeight: String?, newGoalWeight: String?, newHeight: String?, user: User){
         user.email = newEmail
         user.password = newPassword
         user.gender = newGender

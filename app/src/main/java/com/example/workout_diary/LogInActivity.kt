@@ -23,7 +23,7 @@ class LogInActivity : AppCompatActivity() {
 
             if(Authentication.instance.getPassword() != ""){
                 if(inputPassword == Authentication.instance.getPassword()){
-                    Authentication.instance.setAuthenticated(inputUsername)
+                    Authentication.instance.setAuthKey(inputUsername)
                     intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }

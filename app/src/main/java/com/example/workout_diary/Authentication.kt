@@ -2,6 +2,8 @@ package com.example.workout_diary
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import io.grpc.Context
+import java.io.File
 
 
 class Authentication {
@@ -10,20 +12,22 @@ class Authentication {
     }
     private var activeUser: User = User()
 
+    var context: Context? = null
+
     fun getUserInfo(): User{
         return activeUser
     }
 
     fun setActiveUser(user: User?){
-        UserRepository.instance.setActiveUser(user!!.email, user.password, user.gender, user.dateOfBirth, activeUser)
+        UserRepository.instance.setActiveUser(user!!.email, user.password, user.gender, user.dateOfBirth, user.firstName, user.lastName, user.weight, user.goalWeight, user.height, activeUser)
         Log.d("activeUser", this.activeUser.toString())
     }
 
-    fun getAuthenticated(): String?{
+    fun getAuthKey(): String?{
         return activeUser.authKey
     }
 
-    fun setAuthenticated(key: String?){
+    fun setAuthKey(key: String?){
         UserRepository.instance.setAuthKey(key, activeUser)
     }
 
