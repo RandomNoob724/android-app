@@ -147,6 +147,7 @@ class SignUpActivity : AppCompatActivity() {
             FirebaseDb.instance.addUser(user)
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra(ProfileActivity.EXTRA_USERNAME, inputUsername.toString())
+            startActivity(intent)
         }
 
     }

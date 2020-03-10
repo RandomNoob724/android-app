@@ -10,12 +10,12 @@ class Authentication {
     }
     private var activeUser: User = User()
 
-    fun getUserInfo(): User?{
+    fun getUserInfo(): User{
         return activeUser
     }
 
-    fun setActiveUserAtCreation(user: User?){
-        UserRepository.instance.setActiveUserAtCreation(user!!.email, user.password, user.gender, user.dateOfBirth, activeUser)
+    fun setActiveUser(user: User?){
+        UserRepository.instance.setActiveUser(user!!.email, user.password, user.gender, user.dateOfBirth, activeUser)
         Log.d("activeUser", this.activeUser.toString())
     }
 
@@ -24,11 +24,15 @@ class Authentication {
     }
 
     fun setAuthenticated(key: String?){
-        
+        UserRepository.instance.setAuthKey(key, activeUser)
     }
 
     fun getPassword(): String?{
         return activeUser.password
+    }
+
+    fun updateActiveUser(firstName: String, lastName: String, weight: String, goalWeight: String, height: String){
+        UserRepository.instance.updateActiveUser(firstName, lastName, weight, goalWeight, height, activeUser)
     }
 
 

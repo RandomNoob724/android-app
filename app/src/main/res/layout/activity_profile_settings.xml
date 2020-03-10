@@ -84,7 +84,20 @@
         android:hint="@string/height"
         />
 
+    <TextView
+        android:id="@+id/settings_errorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/settings_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        />
+
         <Button
+            android:id="@+id/settings_saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
