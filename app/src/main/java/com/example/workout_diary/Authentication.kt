@@ -1,5 +1,6 @@
 package com.example.workout_diary
 
+import android.content.Context
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
@@ -8,6 +9,7 @@ class Authentication {
     companion object{
         val instance = Authentication()
     }
+
     private var activeUser: User = User()
 
     fun getUserInfo(): User?{

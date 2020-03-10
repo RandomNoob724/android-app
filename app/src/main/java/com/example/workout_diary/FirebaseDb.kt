@@ -3,6 +3,7 @@ package com.example.workout_diary
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import java.lang.reflect.Array
 
 class FirebaseDb{
     companion object{
@@ -28,6 +29,29 @@ class FirebaseDb{
         }
     }
 
+    fun getAllExercises(){
+        val list = db.collection("exercises").get()
+        list.addOnCompleteListener{
+            if(it.isSuccessful){
+                exerciseRepository.exercises = it.result!!.toObjects(Exercise::class.java)
+            } else {
+                Log.d("error",it.exception.toString())
+            }
+        }
+    }
+
+    fun getAllWorkouts(){
+        var list = db.collection("allWorkouts").get()
+        list.addOnCompleteListener{
+            if (it.isSuccessful){
+               workoutRepository.workouts = it.result!!.toObjects(Workout::class.java)
+            } else {
+                Log.d("error",it.exception.toString())
+            }
+        }
+    }
 }
+
+
 
 

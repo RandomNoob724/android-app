@@ -15,6 +15,9 @@ class SignInActivity : AppCompatActivity() {
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
 
+        FirebaseDb.instance.getAllExercises()
+        FirebaseDb.instance.getAllWorkouts()
+
         signInButton.setOnClickListener{
             startActivity(Intent(this, SignUpActivity::class.java))
         }

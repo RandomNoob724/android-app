@@ -18,9 +18,9 @@ class ViewExercise : AppCompatActivity(){
         val exerciseTitle = this.findViewById<TextView>(R.id.view_exercise_title)
         val exerciseDesc = this.findViewById<TextView>(R.id.view_exercise_description)
 
-        val exerciseId = intent.getIntExtra(EXERCISE_ID, 89237)
+        val exerciseTitlefromIntent = intent.getStringExtra(EXERCISE_ID)
 
-        val exerciseItem = exerciseRepository.getExerciseById(exerciseId)
+        val exerciseItem = exerciseRepository.getExerciseByTitle(exerciseTitlefromIntent!!)
         Log.d("logged", exerciseItem.toString())
         if(exerciseItem != null){
             exerciseTitle.text = exerciseItem.title
