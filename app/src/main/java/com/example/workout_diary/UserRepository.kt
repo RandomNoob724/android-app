@@ -14,7 +14,7 @@ class UserRepository {
     }
 
     fun setAuthKey(authKey: String?, user: User){
-        user.authKey = authKey
+        user.authUserId = authKey
     }
 
     fun updateActiveUser(newFirstName: String, newLastName: String, newWeight: String, newGoalWeight: String, newHeight: String, user: User){

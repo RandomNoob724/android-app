@@ -12,17 +12,16 @@ class FirebaseDb{
     private val db = FirebaseFirestore.getInstance()
 
     fun addUser(user: User){
-        val dbRef = db.collection("users").document(user.username.toString())
-        dbRef.set(user)
-        this.getUserByUsername(dbRef.id)
+        val userRef = db.collection("users").document(user.authUserId.toString())
+        userRef.set(user)
+        Authentication.instance.setActiveUser(user)
     }
 
-    fun getUserByUsername(username: String){
-        val userRef = db.collection("users").document(username).get()
+    fun getUserByAuthUserId(authUserId: String?){
+        val userRef = db.collection("users").document(authUserId.toString()).get()
         userRef.addOnCompleteListener{task ->
             if(task.isSuccessful) {
                 Authentication.instance.setActiveUser(task.result?.toObject(User::class.java))
-                Authentication.instance.setAuthKey(username)
             }
             else{
                 Log.d("Error: ", task.exception.toString())
@@ -31,7 +30,7 @@ class FirebaseDb{
     }
 
     fun updateUser(user: User){
-        val userRef = db.collection("users").document(user.authKey.toString())
+        val userRef = db.collection("users").document(user.authUserId.toString())
         userRef.update(
             "firstName", user.firstName,
             "lastName", user.lastName,
@@ -41,21 +40,21 @@ class FirebaseDb{
         )
     }
 
-    fun getUserFromCache(){
-        val userRef = db.collection("users")
-        val source = Source.CACHE
+    fun getUserFromCache(authUserId: String?){
+        val userRef = db.collection("users").document(authUserId!!)
 
-        userRef.get(source).addOnCompleteListener{task ->
+        userRef.get().addOnCompleteListener{task ->
             if(task.isSuccessful){
-                var list = task.result?.toObjects(User::class.java)
-                Log.d("length users in cache",list!!.toString())
-                Authentication.instance.setActiveUser(list!![0])
+                val user = task.result?.toObject(User::class.java)
+                Log.d("length users in cache",user!!.toString())
+                Authentication.instance.setActiveUser(user)
             }
             else{
                 Log.d("Error: ", task.exception.toString())
             }
         }
     }
+
 
 }
 

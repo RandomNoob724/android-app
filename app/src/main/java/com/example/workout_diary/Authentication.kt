@@ -11,6 +11,7 @@ class Authentication {
         val instance = Authentication()
     }
     private var activeUser: User = User()
+    private lateinit var auth: FirebaseAuth
 
     var context: Context? = null
 
@@ -23,9 +24,6 @@ class Authentication {
         Log.d("activeUser", this.activeUser.toString())
     }
 
-    fun getAuthKey(): String?{
-        return activeUser.authKey
-    }
 
     fun setAuthKey(key: String?){
         UserRepository.instance.setAuthKey(key, activeUser)
@@ -39,5 +37,12 @@ class Authentication {
         UserRepository.instance.updateActiveUser(firstName, lastName, weight, goalWeight, height, activeUser)
     }
 
+    fun setAuth(auth: FirebaseAuth){
+        this.auth = auth
+    }
+
+    fun getAuth(): FirebaseAuth{
+        return this.auth
+    }
 
 }

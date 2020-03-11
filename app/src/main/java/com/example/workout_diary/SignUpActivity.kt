@@ -13,6 +13,7 @@ import org.w3c.dom.Text
 import java.io.File
 
 class SignUpActivity : AppCompatActivity(){
+    private lateinit var fAuth: FirebaseAuth
 
     private var usernameValidationChecker = false
     private var emailValidationChecker = false
@@ -132,6 +133,7 @@ class SignUpActivity : AppCompatActivity(){
         )
 
         createButton.setOnClickListener {
+            fAuth = Authentication.instance.getAuth()
 
             val id: Int = radioGroup.checkedRadioButtonId
             val radio: RadioButton = findViewById(id)
@@ -142,13 +144,21 @@ class SignUpActivity : AppCompatActivity(){
 
             val selectedDate = "$day/$month/$year"
 
-            val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate)
-            FirebaseDb.instance.addUser(user)
+            fAuth.createUserWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this){
+                if(it.isSuccessful){
+                    val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate, fAuth.currentUser!!.uid)
+                    FirebaseDb.instance.addUser(user)
 
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
-            startActivity(intent)
-            finish()
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
+                    startActivity(intent)
+                    finish()
+                }
+                else{
+                    Log.d("Error: ", it.exception.toString())
+                }
+            }
+
         }
 
     }

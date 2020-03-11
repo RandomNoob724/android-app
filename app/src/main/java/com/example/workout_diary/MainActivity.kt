@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_profile -> {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment()).commit()
             }
+            R.id.nav_logout -> {
+                Authentication.instance.getAuth().signOut()
+                Authentication.instance.getAuth().currentUser?.reload()
+                startActivity(Intent(this,SignInActivity::class.java))
+                finish()
+            }
         }
         return true
     }

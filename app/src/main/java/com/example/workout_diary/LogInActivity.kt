@@ -18,23 +18,6 @@ class LogInActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.login_loginButton)
         val errorText = findViewById<TextView>(R.id.login_errorText)
 
-        loginButton.setOnClickListener {
-            FirebaseDb.instance.getUserByUsername(inputUsername)
 
-            if(Authentication.instance.getPassword() != ""){
-                if(inputPassword == Authentication.instance.getPassword()){
-                    Authentication.instance.setAuthKey(inputUsername)
-                    intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
-                else{
-                    errorText.text = "Incorrect password"
-                }
-            }
-            else{
-                errorText.text = "No account with given username"
-            }
-
-        }
     }
 }
