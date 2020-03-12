@@ -15,8 +15,6 @@ open class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-
-
         val signInButton = this.findViewById<Button>(R.id.start_signup)
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
@@ -37,12 +35,13 @@ open class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         val auth = FirebaseAuth.getInstance()
         Authentication.instance.setAuth(auth)
         if(auth.currentUser != null){
             FirebaseDb.instance.getUserByAuthUserId(auth.uid)
+            Log.d("userinfo", Authentication.instance.getAuth().currentUser!!.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 }

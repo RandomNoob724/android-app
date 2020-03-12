@@ -26,7 +26,7 @@ class ProfileFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val userInfo = Authentication.instance.getUserInfo() as User
+        val userInfo = Authentication.instance.getUserInfo()
 
         val username = view.findViewById<TextView>(R.id.profile_username)
         val birthdate = view.findViewById<TextView>(R.id.profile_birthdate)
@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
         if(userInfo != null){
             username.text = userInfo.username
             birthdate.text = userInfo.dateOfBirth
-            weight.text = userInfo.weight
+            weight.text = userInfo.gender
             goalWeight.text = userInfo.goalWeight
         }
 

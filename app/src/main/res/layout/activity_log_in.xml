@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".LogInActivity">
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="true" />
+
     <EditText
         android:id="@+id/login_username"
         android:layout_width="match_parent"
@@ -70,8 +76,5 @@
         android:textColor="@color/colorAccent"
         android:gravity="center"
         />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
