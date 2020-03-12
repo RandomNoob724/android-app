@@ -10,9 +10,9 @@ class WorkoutRepository {
     fun addWorkout(id: Int,category : String, exercises: MutableList<Exercise>): Int {
         workouts.add(
             Workout(
-                id,
                 category,
-                exercises
+                exercises,
+                id
             )
         )
         return id

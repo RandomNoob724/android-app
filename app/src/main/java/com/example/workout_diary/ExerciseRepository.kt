@@ -30,6 +30,7 @@ class ExerciseRepository {
             it.title == title
         }
 
+
     fun deleteExerciseByTitle(title: String) =
         exercises.remove(
             exercises.find {
