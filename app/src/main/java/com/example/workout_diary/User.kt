@@ -6,7 +6,7 @@ data class User (
     var password: String? = "",
     var gender: String? = "",
     var dateOfBirth: String? = "",
-    var authKey: String? = "",
+    var authUserId: String? = "",
     var firstName: String? = "",
     var lastName: String? = "",
     var height: String? = "",

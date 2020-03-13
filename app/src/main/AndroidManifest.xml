@@ -17,6 +17,7 @@
         <activity android:name=".ProfileSettingsActivity" />
         <activity android:name=".MainActivity"/>
         <activity android:name=".ViewExercise"/>
+        <activity android:name=".SignUpActivity"/>
         <activity android:name=".SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
         <activity android:name=".LogInActivity" />
     </application>
 

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.coroutines.delay
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 import java.lang.reflect.Array
 import java.util.*
@@ -20,15 +21,17 @@ class FirebaseDb {
     private val db = FirebaseFirestore.getInstance()
 
     fun addUser(user: User){
-        val dbRef = db.collection("users").document(user.username.toString())
-        dbRef.set(user)
-        this.getUserByUsername(dbRef.id)
+        val userRef = db.collection("users").document(user.authUserId.toString())
+        userRef.set(user)
+        Authentication.instance.setActiveUser(user)
     }
 
-    fun getUserByUsername(username: String){
-        val userRef = db.collection("users").document(username).get()
+    fun getUserByAuthUserId(authUserId: String?){
+        Log.d("getuserbyauthuserid", Authentication.instance.getAuth().uid.toString())
+        val userRef = db.collection("users").document(Authentication.instance.getAuth().uid.toString()).get()
         userRef.addOnCompleteListener{task ->
             if(task.isSuccessful) {
+                Log.d("userinfo", task.result?.toObject(User::class.java).toString())
                 Authentication.instance.setActiveUser(task.result?.toObject(User::class.java))
             }
             else{
@@ -38,7 +41,7 @@ class FirebaseDb {
     }
 
     fun updateUser(user: User){
-        val userRef = db.collection("users").document(user.authKey.toString())
+        val userRef = db.collection("users").document(user.authUserId.toString())
         userRef.update(
             "firstName", user.firstName,
             "lastName", user.lastName,

@@ -179,12 +179,12 @@ class ProfileSettingsActivity : AppCompatActivity() {
     }
 
     fun containsDigit(text: String): Boolean{
-        val regex = Regex(".*d.*")
+        val regex = Regex("^[a-zA-Z]*$")
         return text.matches(regex)
     }
 
     fun stringsIsNumber(text: String): Boolean{
-        val regex = Regex("/d+")
+        val regex = Regex("^[0-9]*\$")
         return text.matches(regex)
     }
 }
