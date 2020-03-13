@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.w3c.dom.Text
+import java.util.zip.Inflater
 
 class ProfileFragment : Fragment() {
 
@@ -30,17 +31,23 @@ class ProfileFragment : Fragment() {
         val userInfo = Authentication.instance.getUserInfo()
 
         val username = view.findViewById<TextView>(R.id.profile_username)
-        val birthdate = view.findViewById<TextView>(R.id.profile_birthdate)
+        val birthdate = view.findViewById<TextView>(R.id.profile_dateOfBirth)
         val weight = view.findViewById<TextView>(R.id.profile_weight)
-        val goalWeight = view.findViewById<TextView>(R.id.profile_goalweight)
+        val goalWeight = view.findViewById<TextView>(R.id.profile_goalWeight)
+        val name = view.findViewById<TextView>(R.id.profile_name)
+        val height = view.findViewById<TextView>(R.id.profile_height)
+        val gender = view.findViewById<TextView>(R.id.profile_gender)
         val settingsButton = view.findViewById<Button>(R.id.profile_settingsButton)
         val deleteButton = view.findViewById<Button>(R.id.profile_deleteButton)
 
         if(userInfo != null){
             username.text = userInfo.username
-            birthdate.text = userInfo.dateOfBirth
-            weight.text = userInfo.gender
-            goalWeight.text = userInfo.goalWeight
+            birthdate.text = "Date of birth: " + userInfo.dateOfBirth
+            weight.text = "Weight: " + userInfo.weight + " kg"
+            goalWeight.text = "Goal weight: " + userInfo.goalWeight + " kg"
+            name.text = "Name: " + userInfo.firstName + " " + userInfo.lastName
+            height.text = "Height: " + userInfo.height + " cm"
+            gender.text = "Gender: " + userInfo.gender
         }
 
         settingsButton.setOnClickListener {
@@ -64,6 +71,29 @@ class ProfileFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val userInfo = Authentication.instance.getUserInfo()
+
+        val username = view?.findViewById<TextView>(R.id.profile_username)
+        val birthdate = view?.findViewById<TextView>(R.id.profile_dateOfBirth)
+        val weight = view?.findViewById<TextView>(R.id.profile_weight)
+        val goalWeight = view?.findViewById<TextView>(R.id.profile_goalWeight)
+        val name = view?.findViewById<TextView>(R.id.profile_name)
+        val height = view?.findViewById<TextView>(R.id.profile_height)
+        val gender = view?.findViewById<TextView>(R.id.profile_gender)
+
+        if(userInfo != null){
+            username?.text = userInfo.username
+            birthdate?.text = "Date of birth: " + userInfo.dateOfBirth
+            weight?.text = "Weight: " + userInfo.weight + " kg"
+            goalWeight?.text = "Goal weight: " + userInfo.goalWeight + " kg"
+            name?.text = "Name: " + userInfo.firstName + " " + userInfo.lastName
+            height?.text = "Height: " + userInfo.height + " cm"
+            gender?.text = "Gender: " + userInfo.gender
+        }
     }
 
 }

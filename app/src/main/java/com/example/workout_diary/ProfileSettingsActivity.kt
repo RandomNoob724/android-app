@@ -23,6 +23,8 @@ class ProfileSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_settings)
 
+        val userInfo = Authentication.instance.getUserInfo()
+
         val inputFirstName = findViewById<EditText>(R.id.settings_firstName)
         val inputLastName = findViewById<EditText>(R.id.settings_lastName)
         val inputWeight = findViewById<EditText>(R.id.settings_weight)
@@ -30,6 +32,12 @@ class ProfileSettingsActivity : AppCompatActivity() {
         val inputHeight = findViewById<EditText>(R.id.settings_height)
         val saveButton = findViewById<Button>(R.id.settings_saveButton)
         val errorText = findViewById<TextView>(R.id.settings_errorText)
+
+        inputFirstName.text = Editable.Factory.getInstance().newEditable(userInfo.firstName)
+        inputLastName.text = Editable.Factory.getInstance().newEditable(userInfo.lastName)
+        inputWeight.text = Editable.Factory.getInstance().newEditable(userInfo.weight)
+        inputGoalWeight.text = Editable.Factory.getInstance().newEditable(userInfo.goalWeight)
+        inputHeight.text = Editable.Factory.getInstance().newEditable(userInfo.height)
 
         inputFirstName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
