@@ -21,6 +21,11 @@
     <string name="firstName">First name</string>
     <string name="lastName">Last name</string>
     <string name="saveChanges">Save changes</string>
+    <string name="manageAccount">Manage account</string>
+    <string name="deleteAccount">Delete account</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="areYouSureDeleteAccount">Are you sure you want to delete this account?</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

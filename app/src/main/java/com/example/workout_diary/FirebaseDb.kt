@@ -123,6 +123,30 @@ class FirebaseDb {
          }
          return userWorkout
      }
+
+    fun deleteUserByAuthUserId(authUserId: String?){
+        val userRef = db.collection("users").document(authUserId!!)
+        val userWorkoutRef = db.collection("userWorkout").whereEqualTo("userId", authUserId).get()
+
+        userRef.delete().addOnCompleteListener{task ->
+            if(task.isSuccessful){
+                userWorkoutRef.addOnCompleteListener{
+                    if(it.isSuccessful){
+                        val documents = it.result!!.documents
+                        for(doc in documents){
+                            db.collection("userWorkout").document(doc.id).delete()
+                        }
+                    }
+                    else{
+                        Log.d("Error: ", it.exception.toString())
+                    }
+                }
+            }
+            else{
+                Log.d("Errors: ", task.exception.toString())
+            }
+        }
+    }
 }
 
 
