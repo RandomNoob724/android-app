@@ -5,5 +5,5 @@ data class Workout(
     var exercises: MutableList<Exercise> = mutableListOf(),
     var id: Int = 0
 ){
-    override fun toString(): String = category + ": " + exercises
+    override fun toString(): String = category as String
 }

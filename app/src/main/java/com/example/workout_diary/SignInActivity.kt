@@ -30,11 +30,6 @@ open class SignInActivity : AppCompatActivity() {
         FirebaseDb.instance.getAllExercises()
         FirebaseDb.instance.getAllWorkouts()
 
-
-        //FirebaseDb.instance.addWorkoutForUser(YourWorkout(Timestamp(Date(Date().year,3,12)),"I0W3KeedqsctKRFn42hleK4G0dk2",2))
-        //FirebaseDb.instance.getAllWorkoutsFromUser("I0W3KeedqsctKRFn42hleK4G0dk2")
-        //FirebaseDb.instance.getAllworkoutsFromUserOnDay("I0W3KeedqsctKRFn42hleK4G0dk2",Timestamp(Date(120,3,12)))
-
         signInButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
@@ -46,7 +41,6 @@ open class SignInActivity : AppCompatActivity() {
         skipLoginButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
-
     }
 
     override fun onStart() {
