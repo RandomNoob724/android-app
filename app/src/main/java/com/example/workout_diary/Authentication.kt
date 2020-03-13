@@ -21,7 +21,7 @@ class Authentication {
     }
 
     fun setActiveUser(user: User?){
-        UserRepository.instance.setActiveUser(user!!.email, user.password, user.gender, user.dateOfBirth, user.firstName, user.lastName, user.weight, user.goalWeight, user.height, activeUser)
+        UserRepository.instance.setActiveUser(user!!.username, user.email, user.password, user.gender, user.dateOfBirth, user.firstName, user.lastName, user.weight, user.goalWeight, user.height, user.authUserId, activeUser)
         Log.d("activeUser", this.activeUser.toString())
     }
 

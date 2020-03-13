@@ -49,6 +49,7 @@ class FirebaseDb {
             "goalWeight", user.goalWeight,
             "height", user.height
         )
+        Authentication.instance.setActiveUser(user)
     }
 
     fun getAllExercises(){

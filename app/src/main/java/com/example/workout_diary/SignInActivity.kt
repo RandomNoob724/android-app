@@ -55,7 +55,6 @@ open class SignInActivity : AppCompatActivity() {
         Authentication.instance.setAuth(auth)
         if(auth.currentUser != null){
             FirebaseDb.instance.getUserByAuthUserId(auth.uid)
-            Log.d("userinfo", Authentication.instance.getAuth().currentUser!!.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
