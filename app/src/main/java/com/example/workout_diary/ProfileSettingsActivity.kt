@@ -33,7 +33,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         inputFirstName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                if(!containsDigit(inputFirstName.text.toString())){
+                if(!containsSymbolsOrDigits(inputFirstName.text.toString())){
                     firstNameValidationChecker = false
                     checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
                 }
@@ -56,7 +56,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         inputLastName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                if(!containsDigit(inputLastName.text.toString())){
+                if(!containsSymbolsOrDigits(inputLastName.text.toString())){
                     lastNameValidationChecker = false
                     checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
                 }
@@ -156,7 +156,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
         }
     }
 
-    fun containsDigit(text: String): Boolean{
+    fun containsSymbolsOrDigits(text: String): Boolean{
         val regex = Regex("^[a-zA-Z]*$")
         return text.matches(regex)
     }

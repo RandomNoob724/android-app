@@ -26,14 +26,6 @@ class Authentication {
     }
 
 
-    fun setAuthKey(key: String?){
-        UserRepository.instance.setAuthKey(key, activeUser)
-    }
-
-    fun getPassword(): String?{
-        return activeUser.password
-    }
-
     fun updateActiveUser(firstName: String, lastName: String, weight: String, goalWeight: String, height: String){
         UserRepository.instance.updateActiveUser(firstName, lastName, weight, goalWeight, height, activeUser)
     }
@@ -44,6 +36,10 @@ class Authentication {
 
     fun getAuth(): FirebaseAuth{
         return this.auth
+    }
+
+    fun getAuthUserId(): String?{
+        return activeUser.authUserId
     }
 
 }
