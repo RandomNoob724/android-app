@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.*
 import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,9 @@ class SignUpActivity : AppCompatActivity(){
         val inputPassword = findViewById<EditText>(R.id.signup_password)
         val inputConfirmPassword = findViewById<EditText>(R.id.signup_passwordConfirm)
         val validationText = findViewById<TextView>(R.id.signup_validation)
+        val signUpLoadingBar = findViewById<ProgressBar>(R.id.signup_loading)
+
+        signUpLoadingBar.setVisibility(View.GONE)
 
         inputUsername.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable){}
@@ -145,6 +149,7 @@ class SignUpActivity : AppCompatActivity(){
             val selectedDate = "$day/$month/$year"
 
             fAuth.createUserWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this){
+                signUpLoadingBar.setVisibility(View.VISIBLE)
                 if(it.isSuccessful){
                     val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate, fAuth.currentUser!!.uid)
                     FirebaseDb.instance.addUser(user)
@@ -155,6 +160,7 @@ class SignUpActivity : AppCompatActivity(){
                     finish()
                 }
                 else{
+                    signUpLoadingBar.setVisibility(View.GONE)
                     Log.d("Error: ", it.exception.toString())
                 }
             }

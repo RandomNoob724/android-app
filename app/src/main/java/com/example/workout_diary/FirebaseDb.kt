@@ -18,9 +18,11 @@ class FirebaseDb{
     }
 
     fun getUserByAuthUserId(authUserId: String?){
-        val userRef = db.collection("users").document(authUserId.toString()).get()
+        Log.d("getuserbyauthuserid", Authentication.instance.getAuth().uid.toString())
+        val userRef = db.collection("users").document(Authentication.instance.getAuth().uid.toString()).get()
         userRef.addOnCompleteListener{task ->
             if(task.isSuccessful) {
+                Log.d("userinfo", task.result?.toObject(User::class.java).toString())
                 Authentication.instance.setActiveUser(task.result?.toObject(User::class.java))
             }
             else{
@@ -38,21 +40,6 @@ class FirebaseDb{
             "goalWeight", user.goalWeight,
             "height", user.height
         )
-    }
-
-    fun getUserFromCache(authUserId: String?){
-        val userRef = db.collection("users").document(authUserId!!)
-
-        userRef.get().addOnCompleteListener{task ->
-            if(task.isSuccessful){
-                val user = task.result?.toObject(User::class.java)
-                Log.d("length users in cache",user!!.toString())
-                Authentication.instance.setActiveUser(user)
-            }
-            else{
-                Log.d("Error: ", task.exception.toString())
-            }
-        }
     }
 
 

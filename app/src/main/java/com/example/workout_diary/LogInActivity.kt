@@ -5,31 +5,34 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import android.view.View
+import android.widget.*
 
 class LogInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
-
-        val mAuth = Authentication.instance.getAuth()
+        val auth = Authentication.instance.getAuth()
+        val progressbar = findViewById<ProgressBar>(R.id.login_progress)
         val inputUsername = findViewById<EditText>(R.id.login_username)
         val inputPassword = findViewById<EditText>(R.id.login_password)
         val loginButton = findViewById<Button>(R.id.login_loginButton)
-        val errorText = findViewById<TextView>(R.id.login_errorText)
+        progressbar.setVisibility(View.GONE)
 
         loginButton.setOnClickListener{
-            mAuth.signInWithEmailAndPassword(inputUsername.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this) { task ->
+            auth.signInWithEmailAndPassword(inputUsername.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this) {task ->
                 if(task.isSuccessful) {
-                    val user = mAuth.currentUser
+                    val user = auth.currentUser
                     FirebaseDb.instance.getUserByAuthUserId(user!!.uid)
+                    progressbar.setVisibility(View.VISIBLE)
                     startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 } else {
                     Toast.makeText(baseContext, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
-            }:
-        }:
+            }
+        }
     }
 }
