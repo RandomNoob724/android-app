@@ -155,20 +155,30 @@ class SignUpActivity : AppCompatActivity(){
 
             val selectedDate = "$day/$month/$year"
 
-            fAuth.createUserWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this){
-                signUpLoadingBar.setVisibility(View.VISIBLE)
-                if(it.isSuccessful){
-                    val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate, fAuth.currentUser!!.uid)
-                    FirebaseDb.instance.addUser(user)
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
-                    startActivity(intent)
-                    finish()
-                }
-                else{
-                    signUpLoadingBar.setVisibility(View.GONE)
-                    Log.d("Error: ", it.exception.toString())
+            if(fAuth.currentUser != null){
+                val username = fAuth.currentUser!!.email?.split("@")
+                val user = User(username!![0], fAuth.currentUser!!.email.toString(), "", radio.text.toString(), selectedDate, fAuth.currentUser!!.uid)
+                FirebaseDb.instance.addUser(user)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                fAuth.createUserWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this){
+                    signUpLoadingBar.setVisibility(View.VISIBLE)
+                    if(it.isSuccessful){
+                        val user = User(inputUsername.text.toString(), inputEmail.text.toString(), inputPassword.text.toString(), radio.text.toString(), selectedDate, fAuth.currentUser!!.uid)
+                        FirebaseDb.instance.addUser(user)
+
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra(MainActivity.EXTRA_USERNAME, inputUsername.toString())
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        signUpLoadingBar.setVisibility(View.GONE)
+                        Log.d("Error: ", it.exception.toString())
+                    }
                 }
             }
         }

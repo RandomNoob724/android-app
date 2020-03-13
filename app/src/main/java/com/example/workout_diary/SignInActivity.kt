@@ -27,7 +27,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 open class SignInActivity : AppCompatActivity() {
 
-<<<<<<< HEAD
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     var GOOGLE_SIGN = 123
@@ -111,7 +110,7 @@ open class SignInActivity : AppCompatActivity() {
                 if(task.isSuccessful){
                     Log.d("TAG", "signin success")
                     val user = Authentication.instance.getAuth().currentUser
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, SignUpActivity::class.java))
                 } else {
                     Log.d("TAG", "signin failed")
                     Toast.makeText(this, "Signin Failed", Toast.LENGTH_SHORT).show()
