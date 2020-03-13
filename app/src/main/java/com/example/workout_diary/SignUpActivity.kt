@@ -12,6 +12,7 @@ import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import org.w3c.dom.Text
 import java.io.File
+import java.io.ObjectInputValidation
 
 class SignUpActivity : AppCompatActivity(){
     private lateinit var fAuth: FirebaseAuth
@@ -39,86 +40,90 @@ class SignUpActivity : AppCompatActivity(){
         val signUpLoadingBar = findViewById<ProgressBar>(R.id.signup_loading)
 
         signUpLoadingBar.setVisibility(View.GONE)
+        val errorText = findViewById<TextView>(R.id.signup_validation)
 
         inputUsername.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable){}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int){}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){
+            override fun afterTextChanged(s: Editable){
                 if(inputUsername.text.trim().length < 2){
-                    validationText.text = "Username to short"
                     usernameValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "Username too short")
                 }
                 else if(inputUsername.text.trim().length > 12){
-                    validationText.text = "Username to long"
                     usernameValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "Username too long")
                 }
                 else{
                     usernameValidationChecker = true
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "")
                 }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int){
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){
             }
         })
 
         inputEmail.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(inputEmail.text).matches()) {
+                    emailValidationChecker = false
+                    checkAllValidators(createButton, errorText, "Invalid Email")
+                }
+                else {
+                    emailValidationChecker = true
+                    checkAllValidators(createButton, errorText, "")
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(inputEmail.text).matches()){
-                    validationText.text = "Invalid email"
-                    emailValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
-                }
-                else{
-                    emailValidationChecker = true
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
-                }
             }
         })
 
         inputPassword.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun afterTextChanged(s: Editable?) {
                 if(inputPassword.text.toString().length < 5){
-                    validationText.text = "Password too short"
                     passwordValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "Password too short")
                 }
                 else if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
-                    validationText.text = "Passwords not matching"
                     passwordValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "Passwords not matching")
                 }
                 else{
                     passwordValidationChecker = true
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "")
                 }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
 
         inputConfirmPassword.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun afterTextChanged(s: Editable?) {
                 if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
-                    validationText.text = "Passwords not matching"
                     passwordValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "Passwords not matching")
                 }
                 else{
                     passwordValidationChecker = true
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators(createButton, errorText, "")
                 }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
 
@@ -128,12 +133,14 @@ class SignUpActivity : AppCompatActivity(){
 
                 if(radioGroup.checkedRadioButtonId == -1){
                     genderValidationChecker = false
-                    checkAllValidators(usernameValidationChecker, emailValidationChecker, passwordValidationChecker, genderValidationChecker, createButton, validationText)
+                    checkAllValidators (createButton, errorText, "Select a gender")
                 }
                 else{
                     genderValidationChecker = true
+                    checkAllValidators(createButton, errorText, "")
                 }
             }
+
         )
 
         createButton.setOnClickListener {
@@ -164,30 +171,24 @@ class SignUpActivity : AppCompatActivity(){
                     Log.d("Error: ", it.exception.toString())
                 }
             }
-
         }
-
     }
 
     override fun onStart() {
         super.onStart()
-
-        usernameValidationChecker = false
-        emailValidationChecker = false
-        passwordValidationChecker = false
-        genderValidationChecker = false
     }
 
-    fun checkAllValidators(usernameValidator: Boolean, emailValidator: Boolean, passwordValidator: Boolean, genderValidator: Boolean, createButton: Button, validationText: TextView){
-        if(usernameValidator && emailValidator && passwordValidator && genderValidator){
-            createButton.isEnabled = true
-            createButton.isClickable = true
-            validationText.text = ""
-        }
+    fun checkAllValidators(createButton: Button, errorText: TextView, validationMessage: String){
+         if(usernameValidationChecker && emailValidationChecker && passwordValidationChecker && genderValidationChecker){
+             createButton.isEnabled = true
+             createButton.isClickable = true
+             errorText.text = validationMessage
+         }
         else{
-            createButton.isEnabled = false
-            createButton.isClickable = false
-        }
+             createButton.isEnabled = false
+             createButton.isClickable = false
+             errorText.text = validationMessage
+         }
 
     }
 

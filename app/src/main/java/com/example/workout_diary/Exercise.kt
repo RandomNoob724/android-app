@@ -1,9 +1,9 @@
 package com.example.workout_diary
 
 data class Exercise(
-    val id: Int,
-    var title: String,
-    var description: String
+    var title: String? = "",
+    var description: String? = "",
+    var category: String? = ""
 ){
-    override fun toString() = title
+    override fun toString() = title.toString()
 }

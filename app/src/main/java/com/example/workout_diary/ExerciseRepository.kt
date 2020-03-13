@@ -3,105 +3,38 @@ package com.example.workout_diary
 val exerciseRepository = ExerciseRepository().apply {
     addExercise(
         title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
-    )
-    addExercise(
-        title = "Bench press",
-        description = "Just lay down and push the bar up"
-    )
-    addExercise(
-        title = "Push ups",
-        description = "Just lay down and push yourself up from the ground"
-    )
-    addExercise(
-        title="iosjiofiosjdf",
-        description = "odfijsfdjiosjdfioj"
-    )
-    addExercise(
-        title = "iosdjfiosjdfojsf",
-        description = "iosjdfijisdjfoisjdf"
+        description = "Just lay down and push the bar up",
+        category = "arm"
     )
 }
 
 class ExerciseRepository {
-    private val exercises = mutableListOf<Exercise>()
+    var exercises = mutableListOf<Exercise>()
 
-    fun addExercise(title: String, description: String): Int {
-        val id: Int = when {
-            exercises.count() == 0 -> 1
-            else -> exercises.last().id+1
-        }
+    fun addExercise(title: String, description: String,category:String): String {
+
         exercises.add(
             Exercise(
-                id,
                 title,
-                description
+                description,
+                category
             )
         )
-        return id
+        return title
     }
 
     fun getAllExercises() = exercises
 
-    fun getExerciseById(id: Int) =
+    fun getExerciseByTitle(title: String) =
         exercises.find{
-            it.id == id
+            it.title == title
         }
 
-    fun deleteExerciseById(id: Int) =
+
+    fun deleteExerciseByTitle(title: String) =
         exercises.remove(
             exercises.find {
-                it.id == id
+                it.title == title
             }
         )
-
-    fun updateExerciseById(id: Int, newTitle: String, newDescription: String) =
-        getExerciseById(id)?.run {
-            title = newTitle
-            description = newDescription
-        }
 }

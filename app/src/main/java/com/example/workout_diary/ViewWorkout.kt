@@ -27,13 +27,13 @@ class ViewWorkout : AppCompatActivity(){
                 this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                workout.listOfExercises
+                workout.exercises
             )
 
             listOfExercises.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                 val exerciseItem = listOfExercises.adapter.getItem(position) as Exercise
                 val intent = Intent(view.context, ViewExercise::class.java)
-                intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.id)
+                intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.title)
                 startActivity(intent)
             }
         }

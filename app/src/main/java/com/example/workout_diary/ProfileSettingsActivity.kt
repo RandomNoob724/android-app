@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -32,9 +33,9 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         inputFirstName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                if(containsDigit(inputFirstName.text.toString())){
+                if(!containsDigit(inputFirstName.text.toString())){
                     firstNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Names can not contain digits")
+                    checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
                 }
                 else if(inputFirstName.text.toString().length > 16) {
                     firstNameValidationChecker = false
@@ -47,10 +48,6 @@ class ProfileSettingsActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if(inputFirstName.text.toString() == ""){
-                    firstNameValidationChecker = true
-                    checkAllValidators(saveButton, errorText, "")
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -59,9 +56,9 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         inputLastName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                if(containsDigit(inputLastName.text.toString())){
+                if(!containsDigit(inputLastName.text.toString())){
                     lastNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Names can not contain digits")
+                    checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
                 }
                 else if(inputLastName.text.toString().length > 16){
                     lastNameValidationChecker = false
@@ -74,14 +71,9 @@ class ProfileSettingsActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if(inputLastName.text.toString() == ""){
-                    lastNameValidationChecker = true
-                    checkAllValidators(saveButton, errorText, "")
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
             }
         })
 
@@ -98,10 +90,6 @@ class ProfileSettingsActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if(inputWeight.text.toString() == ""){
-                    weightValidationChecker = true
-                    checkAllValidators(saveButton, errorText, "")
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -121,14 +109,9 @@ class ProfileSettingsActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if(inputGoalWeight.text.toString() == ""){
-                    goalWeightValidationChecker = true
-                    checkAllValidators(saveButton, errorText, "")
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
             }
         })
 
@@ -145,21 +128,16 @@ class ProfileSettingsActivity : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if(inputHeight.text.toString() == ""){
-                    heightValidationChecker = true
-                    checkAllValidators(saveButton, errorText, "")
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
             }
-
         })
 
         saveButton.setOnClickListener {
-            Authentication.instance.updateActiveUser(inputFirstName.text.toString(), inputLastName.text.toString(), inputWeight.text.toString(), inputWeight.text.toString(), inputHeight.text.toString())
+            Authentication.instance.updateActiveUser(inputFirstName.text.toString(), inputLastName.text.toString(), inputWeight.text.toString(), inputGoalWeight.text.toString(), inputHeight.text.toString())
             val updatedUser = Authentication.instance.getUserInfo()
+            Log.d("updated user: ", updatedUser.toString())
             FirebaseDb.instance.updateUser(updatedUser)
             finish()
         }
@@ -169,7 +147,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
         if(firstNameValidationChecker && lastNameValidationChecker && weightValidationChecker && goalWeightValidationChecker && heightValidationChecker){
             saveButton.isClickable = true
             saveButton.isEnabled = true
-            errorText.text = ""
+            errorText.text = validationMessage
         }
         else{
             saveButton.isClickable = false

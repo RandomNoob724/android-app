@@ -1,8 +1,15 @@
 package com.example.workout_diary
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import androidx.annotation.RequiresApi
+import com.google.firebase.Timestamp
+import kotlinx.coroutines.delay
+import java.sql.Date
+import java.util.*
 import android.util.Log
 import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
@@ -20,9 +27,11 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 open class SignInActivity : AppCompatActivity() {
 
+<<<<<<< HEAD
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     var GOOGLE_SIGN = 123
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -39,6 +48,10 @@ open class SignInActivity : AppCompatActivity() {
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
         val signInWithGoogle = this.findViewById<Button>(R.id.signin_google)
+
+        FirebaseDb.instance.getAllExercises()
+        FirebaseDb.instance.getAllWorkouts()
+
 
         signInButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
@@ -64,7 +77,6 @@ open class SignInActivity : AppCompatActivity() {
         Authentication.instance.setAuth(auth)
         if(auth.currentUser != null){
             FirebaseDb.instance.getUserByAuthUserId(auth.uid)
-            Log.d("userinfo", Authentication.instance.getAuth().currentUser!!.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
