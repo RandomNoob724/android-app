@@ -27,8 +27,7 @@ open class SignInActivity : AppCompatActivity() {
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
 
-        FirebaseDb.instance.getAllExercises()
-        FirebaseDb.instance.getAllWorkouts()
+
 
         signInButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
@@ -47,11 +46,20 @@ open class SignInActivity : AppCompatActivity() {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
         Authentication.instance.setAuth(auth)
+        getAll()
         if(auth.currentUser != null){
             FirebaseDb.instance.getUserByAuthUserId(auth.uid)
             Log.d("userinfo", Authentication.instance.getAuth().currentUser!!.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
+        }
+    }
+
+    fun getAll(){
+        FirebaseDb.instance.getAllExercises()
+        FirebaseDb.instance.getAllWorkouts()
+        if (workoutRepository.workouts.isEmpty() || exerciseRepository.exercises.isEmpty()) {
+            Handler().postDelayed({getAll()},200)
         }
     }
 }

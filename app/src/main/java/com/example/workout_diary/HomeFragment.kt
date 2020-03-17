@@ -79,6 +79,9 @@ class HomeFragment: Fragment() {
             result.onSuccess{
                 var workoutList : MutableList<Workout> = mutableListOf<Workout>()
                 for (userWorkout in it){
+                    Log.d("hejsah",userWorkout.toString())
+                    Log.d("hejsah", workoutRepository.workouts.toString())
+                    Log.d("hejsah", workoutRepository.getWorkoutById(userWorkout.workoutId).toString())
                     workoutList.add(workoutRepository.getWorkoutById(userWorkout.workoutId) as Workout)
                 }
                 thisWeeksActivities?.adapter = ArrayAdapter<Workout>(

@@ -9,11 +9,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.coroutines.delay
 import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
-import java.lang.reflect.Array
-import java.util.*
 import android.os.Handler
-import android.os.ProxyFileDescriptorCallback
-
+import kotlin.reflect.typeOf
 
 class FirebaseDb {
     companion object{
@@ -58,30 +55,32 @@ class FirebaseDb {
             } else {
                 Log.d("error",it.exception.toString())
             }
+            if (exerciseRepository.exercises.isEmpty()){
+                getAllExercises()
+            }
         }
     }
 
     fun getAllWorkouts(){
         var list = db.collection("allWorkouts").get()
-            list.addOnSuccessListener{ documents ->
-                var workoutList: MutableList<Workout> = mutableListOf()
-                for (obj in documents){
-                    var workout: Workout = Workout()
-                    workout.category = obj["category"]?.toString()
-                    workout.id = obj["id"].toString().toInt()
-                    var exerciseList: MutableList<Exercise> = mutableListOf()
-                    for (ex in obj["exercises"] as MutableList<DocumentReference>){
-                        Handler().postDelayed({
-                            exerciseList.add(exerciseRepository.getExerciseByTitle(ex.id) as Exercise)
-                        },20)
-                    }
-                    workout.exercises = exerciseList
-                    workoutList.add(workout)
+        list.addOnSuccessListener{ documents ->
+            var workoutList: MutableList<Workout> = mutableListOf()
+            for (obj in documents){
+                var workout = Workout()
+                workout.category = obj["category"]?.toString()
+                workout.id = obj["id"].toString().toInt()
+                var exerciseList: MutableList<Exercise> = mutableListOf()
+                Log.d("hasse",(obj["exercises"]).toString())
+                for (ex in obj["exercises"] as MutableList<DocumentReference>){
+                    Log.d("hasse",ex.id)
+                    exerciseList.add(exerciseRepository.getExerciseById(ex.id) as Exercise)
                 }
-                workoutRepository.workouts = workoutList }
-                .addOnFailureListener {
-                    Log.d("failure",it.message)
+                workoutList.add(workout)
             }
+            workoutRepository.workouts = workoutList }
+            .addOnFailureListener {
+                Log.d("failure",it.message)
+        }
     }
 
     fun getAllWorkoutsFromUser(userId: String) : MutableList<YourWorkout>{
@@ -104,8 +103,6 @@ class FirebaseDb {
             .set(workout)
     }
      fun getAllworkoutsFromUserOnDay(userId: String,day: String,callback: (Result<MutableList<YourWorkout>>) -> Unit){
-         Log.d("hejsandåsan userid: ",userId)
-         Log.d("hejsandåsan day: ",day)
          var userWorkout: MutableList<YourWorkout> = mutableListOf<YourWorkout>()
          var list = db.collection("userWorkout")
              .whereEqualTo("userId",userId)
@@ -113,11 +110,9 @@ class FirebaseDb {
              .get()
          list.addOnSuccessListener {
              userWorkout = it.toObjects(YourWorkout::class.java)
-             Log.d("hejsandåsan List in que",userWorkout.toString())
              if(userWorkout != null){
                  callback.invoke(Result.success(userWorkout))
              }
-
          }
          list.addOnFailureListener{
              Log.d("database faliure",it.toString())
