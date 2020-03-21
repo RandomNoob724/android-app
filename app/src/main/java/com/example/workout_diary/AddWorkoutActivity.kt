@@ -9,7 +9,7 @@ import android.widget.ListView
 import java.text.SimpleDateFormat
 import java.util.*
 
-class activity_add_workout : AppCompatActivity() {
+class AddWorkoutActivity : AppCompatActivity() {
 
     companion object {
         val DATE_FROM_HOME = "DATE_FROM_HOME"
@@ -34,7 +34,7 @@ class activity_add_workout : AppCompatActivity() {
 
         workoutsList.setOnItemClickListener { parent, view, position, id ->
             val workoutItem = workoutsList.adapter.getItem(position) as Workout
-            FirebaseDb.instance.addWorkoutForUser(YourWorkout(date as String,Authentication.instance.getAuth().uid as String,workoutItem.id))
+            yourWorkoutRepository.addYourWorkout(YourWorkout(date as String,Authentication.instance.getAuth().uid as String,workoutItem.id))
             finish()
         }
     }

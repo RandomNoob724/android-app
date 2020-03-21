@@ -25,40 +25,37 @@ class YourWeekFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_your_week, container,false)
-        val todaysActivities = view.findViewById<ListView>(R.id.main_list_view)
+        val listOfExercises = view.findViewById<ListView>(R.id.main_list_view)
 
         val datefake = Date()
         val formatter = SimpleDateFormat("yyyy/MM/dd")
         var date = formatter.format(datefake).toString()
 
-        Log.d("hejsan datum",date)
-        FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String, date) {
-            it.onSuccess {
-                var exerciseList : MutableList<Exercise> = mutableListOf<Exercise>()
-                for (yourWorkout in it) {
-                    for (exercise in workoutRepository.getWorkoutById(yourWorkout.workoutId)!!.exercises) {
-                        exerciseList.add(exercise)
-                    }
-                }
-                todaysActivities.adapter = ArrayAdapter<Exercise>(
-                    view.context,
-                    android.R.layout.simple_list_item_1,
-                    android.R.id.text1,
-                    exerciseList
-                )
-            }
-            it.onFailure{
-                Log.d("Error", it.toString())
+        var exerciseList = mutableListOf<Exercise>()
+        var workouts = yourWorkoutRepository.getAllworkoutOnDay(date)
+
+        for (workout in workouts){
+            val tempList = workoutRepository.getWorkoutById(workout.workoutId)?.exercises as MutableList<Exercise>
+            for (exercise in  tempList){
+                exerciseList.add(exercise)
             }
         }
+        listOfExercises.adapter = ArrayAdapter<Exercise>(
+            view.context,
+            android.R.layout.simple_list_item_1,
+            android.R.id.text1,
+            exerciseList
+        )
 
 
-        todaysActivities.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id ->
-            val exerciseItem = todaysActivities.adapter.getItem(position) as Workout
-            val intent = Intent(context, ViewExercise::class.java)
-            intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.id)
+        listOfExercises.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val exerciseItem = listOfExercises.adapter.getItem(position) as Exercise
+            val intent = Intent(view.context, ViewExercise::class.java)
+            intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.title)
             startActivity(intent)
         }
+
+
         return view
     }
 }

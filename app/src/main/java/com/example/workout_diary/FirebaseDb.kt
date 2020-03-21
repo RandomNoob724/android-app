@@ -24,7 +24,7 @@ class FirebaseDb {
         Authentication.instance.setActiveUser(user)
     }
 
-    fun getUserByAuthUserId(authUserId: String?){
+    fun getUserByAuthUserId(){
         val userRef = db.collection("users").document(Authentication.instance.getAuth().uid.toString()).get()
         userRef.addOnCompleteListener{task ->
             if(task.isSuccessful) {
@@ -49,21 +49,20 @@ class FirebaseDb {
 
     fun getAllExercises(){
         val list = db.collection("exercises").get()
-        list.addOnCompleteListener{
-            if(it.isSuccessful){
-                exerciseRepository.exercises = it.result!!.toObjects(Exercise::class.java)
-            } else {
-                Log.d("error",it.exception.toString())
-            }
-            if (exerciseRepository.exercises.isEmpty()){
-                getAllExercises()
-            }
+        list.addOnSuccessListener{
+            exerciseRepository.exercises = it.toObjects(Exercise::class.java)
+
+            getAllWorkouts()
+        }
+        list.addOnFailureListener {
+            Log.d("failure",it.message as String)
         }
     }
 
     fun getAllWorkouts(){
         var list = db.collection("allWorkouts").get()
         list.addOnSuccessListener{ documents ->
+
             var workoutList: MutableList<Workout> = mutableListOf()
             for (obj in documents){
                 var workout = Workout()
@@ -73,53 +72,38 @@ class FirebaseDb {
                 Log.d("hasse",(obj["exercises"]).toString())
                 for (ex in obj["exercises"] as MutableList<DocumentReference>){
                     Log.d("hasse",ex.id)
+
                     exerciseList.add(exerciseRepository.getExerciseById(ex.id) as Exercise)
                 }
+                workout.exercises = exerciseList
                 workoutList.add(workout)
             }
-            workoutRepository.workouts = workoutList }
-            .addOnFailureListener {
-                Log.d("failure",it.message)
+            workoutRepository.workouts = workoutList
+            getAllWorkoutsFromUser(Authentication.instance.getAuth().uid as String )
+        }
+
+        .addOnFailureListener {
+            Log.d("failure",it.message)
         }
     }
 
-    fun getAllWorkoutsFromUser(userId: String) : MutableList<YourWorkout>{
-        var userWorkout: MutableList<YourWorkout> = mutableListOf()
+    fun getAllWorkoutsFromUser(userId: String){
         var list = db.collection("userWorkout")
             .whereEqualTo("userId",userId)
             .get()
-        list.addOnCompleteListener {
-            if (it.isSuccessful){
-                userWorkout = it.result!!.toObjects(YourWorkout::class.java)
-            } else {
-                Log.d("Error: ",it.exception.toString())
-            }
+        list.addOnSuccessListener {
+            yourWorkoutRepository.yourWorkouts = it.toObjects(YourWorkout::class.java)
         }
-        return userWorkout
     }
 
     fun addWorkoutForUser(workout:YourWorkout){
         val dbRef = db.collection("userWorkout").document()
             .set(workout)
     }
-     fun getAllworkoutsFromUserOnDay(userId: String,day: String,callback: (Result<MutableList<YourWorkout>>) -> Unit){
-         var userWorkout: MutableList<YourWorkout> = mutableListOf<YourWorkout>()
-         var list = db.collection("userWorkout")
-             .whereEqualTo("userId",userId)
-             .whereEqualTo("date",day)
-             .get()
-         list.addOnSuccessListener {
-             userWorkout = it.toObjects(YourWorkout::class.java)
-             if(userWorkout != null){
-                 callback.invoke(Result.success(userWorkout))
-             }
-         }
-         list.addOnFailureListener{
-             Log.d("database faliure",it.toString())
-             callback.invoke(Result.failure(it))
-         }
+     fun getAllworkoutsFromUserOnDay(userId: String,day: String): MutableList<YourWorkout>{
+        return yourWorkoutRepository.getAllworkoutOnDay(day)
      }
-    }
+}
 
 
 
