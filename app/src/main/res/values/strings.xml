@@ -42,4 +42,7 @@
     <string name="heightDigits">Height can only be written in digits</string>
     <string name="authFailed">Authentication failed</string>
     <string name="signInFailed">Sign in failed</string>
+    <string name="SignInGoogle">Sign in with google</string>
+    <string name="enterEmail">You need to enter an E-mail</string>
+    <string name="enterPassword">You need to enter a password</string>
 </resources>

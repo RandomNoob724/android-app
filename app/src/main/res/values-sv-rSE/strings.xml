@@ -40,4 +40,7 @@
     <string name="weightOnlyDigits">Vikt kan bara skrivas i siffror</string>
     <string name="yes">Ja</string>
     <string name="signInFailed">Inloggning misslyckad</string>
+    <string name="SignInGoogle">Registrera med google</string>
+    <string name="enterEmail">Du måste skriva in en E-mail</string>
+    <string name="enterPassword">Du måste skriva en ett lösenord</string>
 </resources>

@@ -50,7 +50,6 @@ open class SignInActivity : AppCompatActivity() {
 
         val signInButton = this.findViewById<Button>(R.id.start_signup)
         val logInButton = this.findViewById<Button>(R.id.start_login)
-        val skipLoginButton = this.findViewById<Button>(R.id.start_skipLogin)
         val signInWithGoogle = this.findViewById<Button>(R.id.signin_google)
 
         val auth = FirebaseAuth.getInstance()
@@ -72,9 +71,6 @@ open class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, LogInActivity::class.java))
         }
 
-        skipLoginButton.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
 
         signInWithGoogle.setOnClickListener{
             signInWithGoogle()
