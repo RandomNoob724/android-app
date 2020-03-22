@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 import android.os.Handler
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.reflect.typeOf
 
 class FirebaseDb {
@@ -110,24 +111,35 @@ class FirebaseDb {
         val userRef = db.collection("users").document(authUserId!!)
         val userWorkoutRef = db.collection("userWorkout").whereEqualTo("userId", authUserId).get()
 
-        userRef.delete().addOnCompleteListener{task ->
+        FirebaseAuth.getInstance().currentUser?.delete()?.addOnCompleteListener{task ->
             if(task.isSuccessful){
-                userWorkoutRef.addOnCompleteListener{
-                    if(it.isSuccessful){
-                        val documents = it.result!!.documents
-                        for(doc in documents){
-                            db.collection("userWorkout").document(doc.id).delete()
-                        }
-                    }
-                    else{
-                        Log.d("Error: ", it.exception.toString())
-                    }
-                }
+               Log.d("Successfully removed: ", task.result.toString())
             }
             else{
                 Log.d("Errors: ", task.exception.toString())
             }
         }
+        userRef.delete().addOnCompleteListener{ deleteTask ->
+            if(deleteTask.isSuccessful){
+                Log.d("Successfully removed: ", deleteTask.result.toString())
+            }
+            else{
+                Log.d("Failed to remove: ", deleteTask.exception.toString())
+            }
+        }
+
+        userWorkoutRef.addOnCompleteListener{
+            if(it.isSuccessful) {
+                val documents = it.result!!.documents
+                for (doc in documents) {
+                    db.collection("userWorkout").document(doc.id).delete()
+                }
+            }
+            else{
+                Log.d("Error: ", it.exception.toString())
+            }
+        }
+
     }
 }
 
