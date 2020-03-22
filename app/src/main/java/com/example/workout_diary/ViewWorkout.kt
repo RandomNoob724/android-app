@@ -20,9 +20,7 @@ class ViewWorkout : AppCompatActivity(){
         val listOfExercises = this.findViewById<ListView>(R.id.todays_exercises_list)
 
         val workoutId = intent.getIntExtra(WORKOUT_ID, 28349290)
-        Log.d("logged", workoutId.toString())
         val workout = workoutRepository.getWorkoutById(workoutId)
-        Log.d("hans lista",workout.toString())
         if(workout != null){
             listOfExercises.adapter = ArrayAdapter<Exercise>(
                 this,

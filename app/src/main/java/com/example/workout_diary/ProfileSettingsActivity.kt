@@ -43,11 +43,11 @@ class ProfileSettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(!containsSymbolsOrDigits(inputFirstName.text.toString())){
                     firstNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.nameOnlyCharacters))
                 }
                 else if(inputFirstName.text.toString().length > 16) {
                     firstNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Name too long")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.nameLong))
                 }
                 else{
                     firstNameValidationChecker = true
@@ -66,11 +66,11 @@ class ProfileSettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(!containsSymbolsOrDigits(inputLastName.text.toString())){
                     lastNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Names can only be written in alphabetic characters")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.nameOnlyCharacters))
                 }
                 else if(inputLastName.text.toString().length > 16){
                     lastNameValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Name too long")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.nameLong))
                 }
                 else{
                     lastNameValidationChecker = true
@@ -89,7 +89,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(!stringsIsNumber(inputWeight.text.toString())){
                     weightValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Weight can only be written in digits")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.weightOnlyDigits))
                 }
                 else{
                     weightValidationChecker = true
@@ -108,7 +108,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(!stringsIsNumber(inputGoalWeight.text.toString())){
                     goalWeightValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Goal weight can only be written in digits")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.goalWeightDigits))
                 }
                 else{
                     goalWeightValidationChecker = true
@@ -127,7 +127,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(!stringsIsNumber(inputHeight.text.toString())){
                     heightValidationChecker = false
-                    checkAllValidators(saveButton, errorText, "Goal weight can only be written in digits")
+                    checkAllValidators(saveButton, errorText, resources.getString(R.string.heightDigits))
                 }
                 else{
                     heightValidationChecker = true
@@ -145,7 +145,6 @@ class ProfileSettingsActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             Authentication.instance.updateActiveUser(inputFirstName.text.toString(), inputLastName.text.toString(), inputWeight.text.toString(), inputGoalWeight.text.toString(), inputHeight.text.toString())
             val updatedUser = Authentication.instance.getUserInfo()
-            Log.d("updated user: ", updatedUser.toString())
             FirebaseDb.instance.updateUser(updatedUser)
             finish()
         }

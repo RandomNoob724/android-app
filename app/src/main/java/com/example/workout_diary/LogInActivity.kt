@@ -30,7 +30,7 @@ class LogInActivity : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(baseContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, resources.getString(R.string.authFailed), Toast.LENGTH_SHORT).show()
                 }
             }
         }

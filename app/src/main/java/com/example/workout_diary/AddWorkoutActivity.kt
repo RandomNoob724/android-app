@@ -29,7 +29,6 @@ class AddWorkoutActivity : AppCompatActivity() {
             android.R.id.text1,
             workoutRepository.workouts
         )
-        Log.d("addWorkout","khykuytgkuygt")
 
 
         workoutsList.setOnItemClickListener { parent, view, position, id ->

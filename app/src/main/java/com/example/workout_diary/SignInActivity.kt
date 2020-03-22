@@ -60,7 +60,6 @@ open class SignInActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             FirebaseDb.instance.getUserByAuthUserId()
-            Log.d("userinfo", Authentication.instance.getAuth().currentUser!!.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -125,12 +124,10 @@ open class SignInActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
-                    Log.d("TAG", "signin success")
                     startActivity(Intent(this, SignUpActivity::class.java))
 
                 } else {
-                    Log.d("TAG", "signin failed")
-                    Toast.makeText(this, "Signin Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, resources.getString(R.string.signInFailed), Toast.LENGTH_SHORT).show()
                 }
             }
     }

@@ -70,7 +70,6 @@ class FirebaseDb {
                 workout.category = obj["category"]?.toString()
                 workout.id = obj["id"].toString().toInt()
                 var exerciseList: MutableList<Exercise> = mutableListOf()
-                Log.d("hasse",(obj["exercises"]).toString())
                 for (ex in obj["exercises"] as MutableList<DocumentReference>){
                     Log.d("hasse",ex.id)
 

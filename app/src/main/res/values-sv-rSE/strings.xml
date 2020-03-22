@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">workout-diary</string>
+    <string name="areYouSureDeleteAccount">Är du säker på att du vill radera kontot?</string>
+    <string name="authFailed">Autentisering misslyckad</string>
+    <string name="createAccount">Skapa konta</string>
+    <string name="dateFormat">YYYY-mm-dd</string>
+    <string name="dateOfBirth">Födelse datum</string>
+    <string name="deleteAccount">Radera konto</string>
+    <string name="editProfile">Uppdatera konto</string>
+    <string name="female">Kvinna</string>
+    <string name="firstName">Förnamn</string>
+    <string name="forgotPassword">Glömt lösenrodet</string>
+    <string name="gender">Kön</string>
+    <string name="goalWeight">Mål vikt</string>
+    <string name="goalWeightDigits">Mål vikt kan bara skrivas med siffror</string>
+    <string name="height">Höjd</string>
+    <string name="heightDigits">Höjd kan bara skrivas med siffror</string>
+    <string name="invalidEmail">Ogiltligt E-mail</string>
+    <string name="lastName">Efternamn</string>
+    <string name="login">Logga in</string>
+    <string name="male">Man</string>
+    <string name="manageAccount">Redigera konto</string>
+    <string name="name">Namn</string>
+    <string name="nameLong">Namn för långt</string>
+    <string name="nameOnlyCharacters">Namn kan bara skrivas alphabetiskt</string>
+    <string name="no">Nej</string>
+    <string name="password">Lösenord</string>
+    <string name="passwordConfirm">Bekräfta lösenord</string>
+    <string name="passwordNotMatching">Lösenorden matchar inte</string>
+    <string name="passwordShort">Lösenordet är för kort</string>
+    <string name="saveChanges">Spara ändringar</string>
+    <string name="selectGender">Välj ett kön</string>
+    <string name="signup">Registrera</string>
+    <string name="skipLogin">Fortsätt till hem</string>
+    <string name="username">Användarnamn</string>
+    <string name="usernameLong">Användarnamn för långt</string>
+    <string name="usernameShort">Användarnamn för kort</string>
+    <string name="weight">Vikt</string>
+    <string name="weightOnlyDigits">Vikt kan bara skrivas i siffror</string>
+    <string name="yes">Ja</string>
+    <string name="signInFailed">Inloggning misslyckad</string>
+</resources>

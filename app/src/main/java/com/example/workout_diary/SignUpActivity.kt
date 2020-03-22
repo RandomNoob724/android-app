@@ -36,7 +36,6 @@ class SignUpActivity : AppCompatActivity(){
         val inputEmail = findViewById<EditText>(R.id.signup_email)
         val inputPassword = findViewById<EditText>(R.id.signup_password)
         val inputConfirmPassword = findViewById<EditText>(R.id.signup_passwordConfirm)
-        val validationText = findViewById<TextView>(R.id.signup_validation)
         val signUpLoadingBar = findViewById<ProgressBar>(R.id.signup_loading)
 
         signUpLoadingBar.setVisibility(View.GONE)
@@ -46,11 +45,11 @@ class SignUpActivity : AppCompatActivity(){
             override fun afterTextChanged(s: Editable){
                 if(inputUsername.text.trim().length < 2){
                     usernameValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Username too short")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.usernameShort))
                 }
                 else if(inputUsername.text.trim().length > 12){
                     usernameValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Username too long")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.usernameLong))
                 }
                 else{
                     usernameValidationChecker = true
@@ -69,7 +68,7 @@ class SignUpActivity : AppCompatActivity(){
             override fun afterTextChanged(s: Editable?) {
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(inputEmail.text).matches()) {
                     emailValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Invalid Email")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.invalidEmail))
                 }
                 else {
                     emailValidationChecker = true
@@ -89,11 +88,11 @@ class SignUpActivity : AppCompatActivity(){
             override fun afterTextChanged(s: Editable?) {
                 if(inputPassword.text.toString().length < 5){
                     passwordValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Password too short")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.passwordShort))
                 }
                 else if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
                     passwordValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Passwords not matching")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.passwordNotMatching))
                 }
                 else{
                     passwordValidationChecker = true
@@ -112,7 +111,7 @@ class SignUpActivity : AppCompatActivity(){
             override fun afterTextChanged(s: Editable?) {
                 if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
                     passwordValidationChecker = false
-                    checkAllValidators(createButton, errorText, "Passwords not matching")
+                    checkAllValidators(createButton, errorText, resources.getString(R.string.passwordNotMatching))
                 }
                 else{
                     passwordValidationChecker = true
@@ -133,7 +132,7 @@ class SignUpActivity : AppCompatActivity(){
 
                 if(radioGroup.checkedRadioButtonId == -1){
                     genderValidationChecker = false
-                    checkAllValidators (createButton, errorText, "Select a gender")
+                    checkAllValidators (createButton, errorText, resources.getString(R.string.selectGender))
                 }
                 else{
                     genderValidationChecker = true

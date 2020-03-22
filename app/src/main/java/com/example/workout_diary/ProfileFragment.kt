@@ -16,10 +16,6 @@ import java.util.zip.Inflater
 
 class ProfileFragment : Fragment() {
 
-    companion object{
-        val EXTRA_USERNAME = "EXTRA_USERNAME"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,12 +38,12 @@ class ProfileFragment : Fragment() {
 
         if(userInfo != null){
             username.text = userInfo.username
-            birthdate.text = "Date of birth: " + userInfo.dateOfBirth
-            weight.text = "Weight: " + userInfo.weight + " kg"
-            goalWeight.text = "Goal weight: " + userInfo.goalWeight + " kg"
-            name.text = "Name: " + userInfo.firstName + " " + userInfo.lastName
-            height.text = "Height: " + userInfo.height + " cm"
-            gender.text = "Gender: " + userInfo.gender
+            birthdate.text = resources.getString(R.string.dateOfBirth)+ ": " + userInfo.dateOfBirth
+            weight.text = resources.getString(R.string.weight) + ": " + userInfo.weight + " kg"
+            goalWeight.text = resources.getString(R.string.goalWeight) + ": " + userInfo.goalWeight + " kg"
+            name.text = resources.getString(R.string.name) + ": " + userInfo.firstName + " " + userInfo.lastName
+            height.text = resources.getString(R.string.height) + ": " + userInfo.height + " cm"
+            gender.text = resources.getString(R.string.gender) + ": " + userInfo.gender
         }
 
         settingsButton.setOnClickListener {

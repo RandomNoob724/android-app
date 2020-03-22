@@ -4,7 +4,7 @@
     <string name="signup">Sign up</string>
     <string name="skipLogin">Proceed to home</string>
     <string name="username">Username</string>
-    <string name="email">E-mail</string>
+    <string name="email" translatable="false">E-mail</string>
     <string name="password">Password</string>
     <string name="passwordConfirm">Confirm Password</string>
     <string name="gender">Gender</string>
@@ -20,12 +20,26 @@
     <string name="goalWeight">Goal weight</string>
     <string name="firstName">First name</string>
     <string name="lastName">Last name</string>
+    <string name="name">Name</string>
     <string name="saveChanges">Save changes</string>
     <string name="manageAccount">Manage account</string>
     <string name="deleteAccount">Delete account</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="areYouSureDeleteAccount">Are you sure you want to delete this account?</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="usernameShort">Username too short</string>
+    <string name="usernameLong">Username too long</string>
+    <string name="invalidEmail">Invalid E-mail</string>
+    <string name="passwordShort">Password too short</string>
+    <string name="passwordNotMatching">Passwords not matching</string>
+    <string name="selectGender">Select a gender</string>
+    <string name="nameOnlyCharacters">Names can only be written in alphabetic characters</string>
+    <string name="nameLong">Name too long</string>
+    <string name="weightOnlyDigits">Weight can only be written in digits</string>
+    <string name="goalWeightDigits">Goal weight can only be written in digits</string>
+    <string name="heightDigits">Height can only be written in digits</string>
+    <string name="authFailed">Authentication failed</string>
+    <string name="signInFailed">Sign in failed</string>
 </resources>

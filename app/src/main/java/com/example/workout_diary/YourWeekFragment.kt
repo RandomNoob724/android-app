@@ -15,9 +15,6 @@ import java.util.*
 
 class YourWeekFragment : Fragment() {
 
-    companion object {
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

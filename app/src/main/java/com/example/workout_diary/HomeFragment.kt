@@ -31,17 +31,14 @@ class HomeFragment: Fragment() {
         val calanderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
 
         val datefake = Date()
-        Log.d("hasse dagendatum",datefake.toString())
         val formatter = SimpleDateFormat("yyyy/MM/dd")
         currentDate = formatter.format(datefake).toString()
-        Log.d("hasse dagensdatum igen",currentDate)
 
         var workoutList = mutableListOf<Workout>()
         var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String,currentDate)
         for (workoutYour in workoutYourList){
             workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
         }
-        Log.d("dagen workoutlist",workoutList.toString())
         thisWeeksActivities.adapter = ArrayAdapter<Workout>(
             view.context as Context,
             android.R.layout.simple_list_item_1,
