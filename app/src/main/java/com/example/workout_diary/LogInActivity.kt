@@ -25,7 +25,7 @@ class LogInActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(inputUsername.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this) {task ->
                 if(task.isSuccessful) {
                     val user = auth.currentUser
-                    FirebaseDb.instance.getUserByAuthUserId(user!!.uid)
+                    FirebaseDb.instance.getUserByAuthUserId()
                     progressbar.setVisibility(View.VISIBLE)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()

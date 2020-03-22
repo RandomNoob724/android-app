@@ -184,10 +184,6 @@ class SignUpActivity : AppCompatActivity(){
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     fun checkAllValidators(createButton: Button, errorText: TextView, validationMessage: String){
          if(usernameValidationChecker && emailValidationChecker && passwordValidationChecker && genderValidationChecker){
              createButton.isEnabled = true
