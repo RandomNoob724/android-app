@@ -2,15 +2,12 @@ package com.example.workout_diary
 
 import android.util.Log
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.coroutines.delay
-import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 import android.os.Handler
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlin.reflect.typeOf
 
 class FirebaseDb {
@@ -97,6 +94,7 @@ class FirebaseDb {
         list.addOnSuccessListener {
             yourWorkoutRepository.yourWorkouts = it.toObjects(YourWorkout::class.java)
         }
+        Log.d("UsersWorkout", yourWorkoutRepository.yourWorkouts.toString())
     }
 
     fun addWorkoutForUser(workout:YourWorkout){
@@ -104,7 +102,9 @@ class FirebaseDb {
             .set(workout)
     }
      fun getAllworkoutsFromUserOnDay(userId: String,day: String): MutableList<YourWorkout>{
-        return yourWorkoutRepository.getAllworkoutOnDay(day)
+         Log.d("UsersWorkout", userId)
+         Log.d("UsersWorkout", yourWorkoutRepository.getAllworkoutOnDay(userId ,day).toString())
+        return yourWorkoutRepository.getAllworkoutOnDay(userId, day)
      }
 
     fun deleteUserByAuthUserId(authUserId: String?){

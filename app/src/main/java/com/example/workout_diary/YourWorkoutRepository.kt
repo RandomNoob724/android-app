@@ -11,10 +11,10 @@ class YourWorkoutRepository {
         FirebaseDb.instance.addWorkoutForUser(yourWorkout)
     }
 
-    fun getAllworkoutOnDay(date:String):MutableList<YourWorkout>{
+    fun getAllworkoutOnDay(userId: String, date:String):MutableList<YourWorkout>{
         var returnList = mutableListOf<YourWorkout>()
         for (yourWorkout in yourWorkouts){
-            if (yourWorkout.date == date){
+            if (yourWorkout.date == date && yourWorkout.userId == userId){
                 returnList.add(yourWorkout)
             }
         }
