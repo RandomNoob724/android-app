@@ -29,7 +29,7 @@ class YourWeekFragment : Fragment() {
         var date = formatter.format(datefake).toString()
 
         var exerciseList = mutableListOf<Exercise>()
-        var workouts = yourWorkoutRepository.getAllworkoutOnDay(date)
+        var workouts = yourWorkoutRepository.getAllworkoutOnDay(Authentication.instance.getAuth().uid.toString(), date)
 
         for (workout in workouts){
             val tempList = workoutRepository.getWorkoutById(workout.workoutId)?.exercises as MutableList<Exercise>

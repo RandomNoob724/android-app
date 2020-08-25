@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.log
 
 class HomeFragment: Fragment() {
 
@@ -35,7 +36,7 @@ class HomeFragment: Fragment() {
         currentDate = formatter.format(datefake).toString()
 
         var workoutList = mutableListOf<Workout>()
-        var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String,currentDate)
+        var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid.toString(),currentDate)
         for (workoutYour in workoutYourList){
             workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
         }
@@ -52,6 +53,7 @@ class HomeFragment: Fragment() {
 
             var workoutList = mutableListOf<Workout>()
             var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String,currentDate)
+            Log.d("UsersWorkoutList", Authentication.instance.getAuth().uid.toString() + workoutYourList.toString())
             for (workoutYour in workoutYourList){
                 workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
             }
