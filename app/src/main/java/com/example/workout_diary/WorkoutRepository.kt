@@ -12,5 +12,4 @@ class WorkoutRepository {
         workouts.find{
             it.id == id
         }
-
 }

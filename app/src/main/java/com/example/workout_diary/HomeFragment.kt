@@ -13,6 +13,7 @@ import android.widget.CalendarView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.log
@@ -20,6 +21,8 @@ import kotlin.math.log
 class HomeFragment: Fragment() {
 
     var currentDate : String = ""
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,17 +34,17 @@ class HomeFragment: Fragment() {
         val thisWeeksActivities = view.findViewById<ListView>(R.id.main_list_view)
         val calanderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
 
-        val datefake = Date()
+        val datefake = calanderView.date
         val formatter = SimpleDateFormat("yyyy/MM/dd")
         currentDate = formatter.format(datefake).toString()
 
         var workoutList = mutableListOf<Workout>()
-        var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid.toString(),currentDate)
-        for (workoutYour in workoutYourList){
-            workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
+        var yourWorkoutList = yourWorkoutRepository.getAllworkoutOnDay(Authentication.instance.getAuth().uid as String, currentDate)
+        for (workout in yourWorkoutList){
+            workoutList.add(workoutRepository.getWorkoutById(workout.workoutId) as Workout)
         }
-        thisWeeksActivities.adapter = ArrayAdapter<Workout>(
-            view.context as Context,
+        thisWeeksActivities?.adapter = ArrayAdapter<Workout>(
+            view?.context as Context,
             android.R.layout.simple_list_item_1,
             android.R.id.text1,
             workoutList
@@ -52,13 +55,12 @@ class HomeFragment: Fragment() {
             currentDate = formatter.format(datefake).toString()
 
             var workoutList = mutableListOf<Workout>()
-            var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String,currentDate)
-            Log.d("UsersWorkoutList", Authentication.instance.getAuth().uid.toString() + workoutYourList.toString())
-            for (workoutYour in workoutYourList){
-                workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
+            var yourWorkoutList = yourWorkoutRepository.getAllworkoutOnDay(Authentication.instance.getAuth().uid as String, currentDate)
+            for (workout in yourWorkoutList){
+                workoutList.add(workoutRepository.getWorkoutById(workout.workoutId) as Workout)
             }
             thisWeeksActivities.adapter = ArrayAdapter<Workout>(
-                view?.context as Context,
+                view.context as Context,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 workoutList
@@ -80,24 +82,5 @@ class HomeFragment: Fragment() {
         }
 
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val thisWeeksActivities = view?.findViewById<ListView>(R.id.main_list_view)
-
-
-        var workoutList = mutableListOf<Workout>()
-        var workoutYourList = FirebaseDb.instance.getAllworkoutsFromUserOnDay(Authentication.instance.getAuth().uid as String,currentDate)
-        for (workoutYour in workoutYourList){
-            workoutList.add(workoutRepository.getWorkoutById(workoutYour.workoutId) as Workout)
-        }
-        thisWeeksActivities?.adapter = ArrayAdapter<Workout>(
-            view?.context as Context,
-            android.R.layout.simple_list_item_1,
-            android.R.id.text1,
-            workoutList
-        )
-
     }
 }

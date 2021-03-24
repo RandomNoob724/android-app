@@ -8,6 +8,8 @@ import android.os.Handler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.reflect.typeOf
 
 class FirebaseDb {
@@ -15,6 +17,12 @@ class FirebaseDb {
         val instance = FirebaseDb()
     }
     private val db = FirebaseFirestore.getInstance()
+
+    fun setFirestoreSettings(){
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED).build()
+        db.firestoreSettings = settings
+    }
 
     fun addUser(user: User){
         val userRef = db.collection("users").document(user.authUserId.toString())
@@ -77,6 +85,7 @@ class FirebaseDb {
                 workoutList.add(workout)
             }
             workoutRepository.workouts = workoutList
+            Log.d("WorkoutList", workoutRepository.workouts.toString())
             if (Authentication.instance.getAuth().uid != null) {
                 getAllWorkoutsFromUser(Authentication.instance.getAuth().uid as String)
             }

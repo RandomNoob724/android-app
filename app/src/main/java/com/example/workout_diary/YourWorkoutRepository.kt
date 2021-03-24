@@ -6,7 +6,6 @@ class YourWorkoutRepository {
     var yourWorkouts = mutableListOf<YourWorkout>()
 
     fun addYourWorkout(yourWorkout: YourWorkout){
-
         yourWorkouts.add(yourWorkout)
         FirebaseDb.instance.addWorkoutForUser(yourWorkout)
     }
@@ -20,5 +19,4 @@ class YourWorkoutRepository {
         }
         return returnList
     }
-
 }
