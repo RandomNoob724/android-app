@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
 
     <androidx.core.widget.NestedScrollView
@@ -18,7 +17,7 @@
             android:id="@+id/your_week_topLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:orientation="vertical">
 
             <TextView
@@ -27,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Your week"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/main_calendar_view"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -36,6 +36,7 @@
                 android:id="@+id/main_calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/CalendarViewCustom"
                 app:layout_constraintBottom_toTopOf="@+id/your_day_text"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -47,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Your Day"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@id/main_calendar_view"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
