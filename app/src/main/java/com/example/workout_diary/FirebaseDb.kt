@@ -18,12 +18,6 @@ class FirebaseDb {
     }
     private val db = FirebaseFirestore.getInstance()
 
-    fun setFirestoreSettings(){
-        val settings = FirebaseFirestoreSettings.Builder()
-            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED).build()
-        db.firestoreSettings = settings
-    }
-
     fun addUser(user: User){
         val userRef = db.collection("users").document(user.authUserId.toString())
         userRef.set(user)
