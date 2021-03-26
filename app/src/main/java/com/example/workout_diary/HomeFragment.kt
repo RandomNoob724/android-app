@@ -24,6 +24,7 @@ class HomeFragment: Fragment() {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +44,7 @@ class HomeFragment: Fragment() {
         for (workout in yourWorkoutList){
             workoutList.add(workoutRepository.getWorkoutById(workout.workoutId) as Workout)
         }
+
         thisWeeksActivities?.adapter = ArrayAdapter<Workout>(
             view?.context as Context,
             android.R.layout.simple_list_item_1,

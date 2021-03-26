@@ -23,6 +23,8 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timerTask
@@ -42,13 +44,20 @@ open class SignInActivity : AppCompatActivity() {
         //Get the current instance of authentication and set it in the singleton
         auth = FirebaseAuth.getInstance()
         Authentication.instance.setAuth(auth)
+
+        if(auth.currentUser != null){
+            val intent = Intent(this, MainActivity::class.java)
+            GlobalScope.async{
+                yourWorkoutRepository.yourWorkouts = FirebaseDb.instance.getAllWorkoutsFromUser(auth.uid as String)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-
-        FirebaseDb.instance.getAllExercises()
 
         val signInButton = this.findViewById<Button>(R.id.start_signup)
         val logInButton = this.findViewById<Button>(R.id.start_login)
