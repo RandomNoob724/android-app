@@ -109,6 +109,8 @@ open class SignInActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("GoogleAuth", "signInWithCredential:success")
+                    val user = User(email = auth.currentUser.email, authUserId = auth.currentUser.uid)
+                    FirebaseDb.instance.addUser(user)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
