@@ -94,18 +94,10 @@ class FirebaseDb {
         return yourWorkoutRepository.getAllworkoutOnDay(userId, day)
      }
 
-    fun deleteUserByAuthUserId(authUserId: String?){
-        val userRef = db.collection("users").document(authUserId!!)
+    fun deleteUserByAuthUserId(authUserId: String){
+        val userRef = db.collection("users").document(authUserId)
         val userWorkoutRef = db.collection("userWorkout").whereEqualTo("userId", authUserId).get()
 
-        FirebaseAuth.getInstance().currentUser?.delete()?.addOnCompleteListener{task ->
-            if(task.isSuccessful){
-               Log.d("Successfully removed: ", task.result.toString())
-            }
-            else{
-                Log.d("Errors: ", task.exception.toString())
-            }
-        }
         userRef.delete().addOnCompleteListener{ deleteTask ->
             if(deleteTask.isSuccessful){
                 Log.d("Successfully removed: ", deleteTask.result.toString())
@@ -115,15 +107,24 @@ class FirebaseDb {
             }
         }
 
-        userWorkoutRef.addOnCompleteListener{
-            if(it.isSuccessful) {
-                val documents = it.result!!.documents
+        userWorkoutRef.addOnCompleteListener{ workoutRef ->
+            if(workoutRef.isSuccessful) {
+                val documents = workoutRef.result!!.documents
                 for (doc in documents) {
                     db.collection("userWorkout").document(doc.id).delete()
                 }
             }
             else{
-                Log.d("Error: ", it.exception.toString())
+                Log.d("Error: ", workoutRef.exception.toString())
+            }
+        }
+
+        FirebaseAuth.getInstance().currentUser?.delete()?.addOnCompleteListener{task ->
+            if(task.isSuccessful){
+                Log.d("Successfully removed: ", task.result.toString())
+            }
+            else{
+                Log.d("Errors: ", task.exception.toString())
             }
         }
 

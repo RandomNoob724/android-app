@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.coroutines.runBlocking
 import org.w3c.dom.Text
 import java.util.zip.Inflater
 
@@ -55,7 +56,8 @@ class ProfileFragment : Fragment() {
                 .setTitle(R.string.deleteAccount).setMessage(R.string.areYouSureDeleteAccount)
                 .setPositiveButton(R.string.yes){
                     dialog, which ->
-                    FirebaseDb.instance.deleteUserByAuthUserId(Authentication.instance.getAuthUserId())
+
+                    FirebaseDb.instance.deleteUserByAuthUserId(Authentication.instance.getAuth().uid as String)
                     Authentication.instance.getAuth().signOut()
                     Authentication.instance.getAuth().currentUser?.reload()
                     startActivity(Intent(view.context, SignInActivity::class.java))
