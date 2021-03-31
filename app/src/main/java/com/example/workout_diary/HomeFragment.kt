@@ -3,6 +3,7 @@ package com.example.workout_diary
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,15 @@ import android.widget.CalendarView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment: Fragment() {
 
-    var currentDate : String = ""
-    val formatter = SimpleDateFormat("yyyy/MM/dd")
+    private var currentDate : String = ""
+    private val formatter = SimpleDateFormat("yyyy/MM/dd")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +33,9 @@ class HomeFragment: Fragment() {
         val thisWeeksActivities = view.findViewById<ListView>(R.id.main_list_view)
         val calanderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
 
-        val datefake = calanderView.date
-        val formatter = SimpleDateFormat("yyyy/MM/dd")
-        currentDate = formatter.format(datefake).toString()
+        currentDate = formatter.format(calanderView.date).toString()
 
-        var workoutList = mutableListOf<Workout>()
-        var yourWorkoutList = yourWorkoutRepository.getAllworkoutOnDay(Authentication.instance.getAuth().uid as String, currentDate)
-        for (workout in yourWorkoutList){
-            workoutList.add(workoutRepository.getWorkoutById(workout.workoutId) as Workout)
-        }
+        var workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
 
         thisWeeksActivities.adapter = ArrayAdapter<Workout>(
             calanderView.context as Context,
@@ -49,20 +45,20 @@ class HomeFragment: Fragment() {
         )
 
         calanderView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var datefake = Date(year-1900,month,dayOfMonth)
-            currentDate = formatter.format(datefake).toString()
+            //In order to get the current date you for some reason need to take the year - 1900
+            currentDate = formatter.format(Date(year-1900, month, dayOfMonth)).toString()
 
-            var workoutList = mutableListOf<Workout>()
-            var yourWorkoutList = yourWorkoutRepository.getAllworkoutOnDay(Authentication.instance.getAuth().uid as String, currentDate)
-            for (workout in yourWorkoutList){
-                workoutList.add(workoutRepository.getWorkoutById(workout.workoutId) as Workout)
-            }
+            //Empty the list before filling it with new data
+            workoutList.clear()
+            workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
+
             thisWeeksActivities.adapter = ArrayAdapter<Workout>(
                 view.context as Context,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 workoutList
             )
+            //Change the size of the listview depending on the numbers of elements inside of it.
             setListViewHeightBasedOnItems(thisWeeksActivities)
         }
 
@@ -83,7 +79,8 @@ class HomeFragment: Fragment() {
         return view
     }
 
-    fun setListViewHeightBasedOnItems(listView: ListView): Boolean {
+    //Function for setting the size of the list depending on the number of items in the list
+    private fun setListViewHeightBasedOnItems(listView: ListView): Boolean {
         val listAdapter = listView.adapter
         return if (listAdapter != null) {
             val numberOfItems = listAdapter.count
