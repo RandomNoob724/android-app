@@ -29,4 +29,17 @@ class UserRepository {
         user.height = newHeight
     }
 
+    fun removeActiveUser(user: User){
+        user.username = null
+        user.email = null
+        user.password = null
+        user.gender = null
+        user.dateOfBirth = null
+        user.firstName = null
+        user.lastName = null
+        user.weight = null
+        user.goalWeight = null
+        user.height = null
+        user.authUserId = null
+    }
 }

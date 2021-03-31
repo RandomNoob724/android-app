@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment()).commit()
             }
             R.id.nav_logout -> {
+                yourWorkoutRepository.resetYourWorkoutList()
+                UserRepository.instance.removeActiveUser(Authentication.instance.getUserInfo())
                 Authentication.instance.getAuth().signOut()
                 Authentication.instance.getAuth().currentUser?.reload()
                 startActivity(Intent(this,SignInActivity::class.java))

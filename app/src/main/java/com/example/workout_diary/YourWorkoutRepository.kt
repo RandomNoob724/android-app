@@ -19,4 +19,8 @@ class YourWorkoutRepository {
         }
         return returnList
     }
+
+    fun resetYourWorkoutList(){
+        yourWorkouts = mutableListOf<YourWorkout>()
+    }
 }
