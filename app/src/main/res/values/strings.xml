@@ -53,4 +53,5 @@
     <string name="yourWeek">Your Week</string>
     <string name="calenderView">Calender View</string>
     <string name="todaysWorkouts">Todays Workouts</string>
+    <string name="chooseWorkout">Choose Workout to Add</string>
 </resources>

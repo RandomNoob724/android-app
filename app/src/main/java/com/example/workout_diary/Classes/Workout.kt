@@ -1,4 +1,6 @@
-package com.example.workout_diary
+package com.example.workout_diary.Classes
+
+import com.example.workout_diary.Classes.Exercise
 
 data class Workout(
     var category: String? = "Bullshit",

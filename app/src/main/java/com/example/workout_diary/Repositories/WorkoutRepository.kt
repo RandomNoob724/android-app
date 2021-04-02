@@ -1,6 +1,10 @@
-package com.example.workout_diary
+package com.example.workout_diary.Repositories
 
-val workoutRepository = WorkoutRepository().apply {
+import com.example.workout_diary.FirebaseControllers.Authentication
+import com.example.workout_diary.Classes.Workout
+
+val workoutRepository = WorkoutRepository()
+    .apply {
 
 }
 

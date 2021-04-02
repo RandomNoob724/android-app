@@ -1,7 +1,6 @@
-package com.example.workout_diary
+package com.example.workout_diary.FragmentControllers
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.runBlocking
-import org.w3c.dom.Text
-import java.util.zip.Inflater
+import com.example.workout_diary.*
+import com.example.workout_diary.ActivityControllers.ProfileSettingsActivity
+import com.example.workout_diary.ActivityControllers.SignInActivity
+import com.example.workout_diary.FirebaseControllers.Authentication
+import com.example.workout_diary.FirebaseControllers.FirebaseDb
 
 class ProfileFragment : Fragment() {
 
@@ -53,11 +53,14 @@ class ProfileFragment : Fragment() {
 
         deleteButton.setOnClickListener {
             AlertDialog.Builder(view.context)
-                .setTitle(R.string.deleteAccount).setMessage(R.string.areYouSureDeleteAccount)
+                .setTitle(R.string.deleteAccount).setMessage(
+                    R.string.areYouSureDeleteAccount
+                )
                 .setPositiveButton(R.string.yes){
                     dialog, which ->
 
-                    FirebaseDb.instance.deleteUserByAuthUserId(Authentication.instance.getAuth().uid as String)
+                    FirebaseDb.instance.deleteUserByAuthUserId(
+                        Authentication.instance.getAuth().uid as String)
                     Authentication.instance.getAuth().signOut()
                     Authentication.instance.getAuth().currentUser?.reload()
                     startActivity(Intent(view.context, SignInActivity::class.java))
@@ -70,28 +73,4 @@ class ProfileFragment : Fragment() {
 
         return view
     }
-
-/*    override fun onStart() {
-        super.onStart()
-        val userInfo = Authentication.instance.getUserInfo()
-
-        val username = view?.findViewById<TextView>(R.id.profile_username)
-        val birthdate = view?.findViewById<TextView>(R.id.profile_dateOfBirth)
-        val weight = view?.findViewById<TextView>(R.id.profile_weight)
-        val goalWeight = view?.findViewById<TextView>(R.id.profile_goalWeight)
-        val name = view?.findViewById<TextView>(R.id.profile_name)
-        val height = view?.findViewById<TextView>(R.id.profile_height)
-        val gender = view?.findViewById<TextView>(R.id.profile_gender)
-
-        if(userInfo != null){
-            username?.text = userInfo.username
-            birthdate?.text = "${getString(R.string.dateOfBirth)}: " + userInfo.dateOfBirth
-            weight?.text = "${getString(R.string.weight)}: " + userInfo.weight + " kg"
-            goalWeight?.text = "${getString(R.string.goalWeight)}: " + userInfo.goalWeight + " kg"
-            name?.text = "${getString(R.string.name)}: " + userInfo.firstName + " " + userInfo.lastName
-            height?.text = "${getString(R.string.height)}: " + userInfo.height + " cm"
-            gender?.text = "${getString(R.string.gender)}: " + userInfo.gender
-        }
-    }
-*/
 }

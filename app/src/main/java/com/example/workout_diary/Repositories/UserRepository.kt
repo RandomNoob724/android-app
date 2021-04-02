@@ -1,4 +1,6 @@
-package com.example.workout_diary
+package com.example.workout_diary.Repositories
+
+import com.example.workout_diary.Classes.User
 
 class UserRepository {
 

@@ -1,37 +1,29 @@
-package com.example.workout_diary
+package com.example.workout_diary.ActivityControllers
 
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import androidx.annotation.RequiresApi
-import com.google.firebase.Timestamp
-import kotlinx.coroutines.delay
-import java.sql.Date
-import java.util.*
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.google.firebase.auth.FirebaseAuth
 
-import java.io.File
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import com.example.workout_diary.*
+import com.example.workout_diary.Classes.User
+import com.example.workout_diary.FirebaseControllers.Authentication
+import com.example.workout_diary.FirebaseControllers.FirebaseDb
+import com.example.workout_diary.Repositories.yourWorkoutRepository
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timerTask
-
 
 
 open class SignInActivity : AppCompatActivity() {
@@ -119,7 +111,10 @@ open class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "Sign in successful", Toast.LENGTH_LONG).show()
                     Log.d("GoogleAuth", "signInWithCredential:success")
-                    val user = User(email = auth.currentUser.email, authUserId = auth.currentUser.uid)
+                    val user = User(
+                        email = auth.currentUser.email,
+                        authUserId = auth.currentUser.uid
+                    )
                     FirebaseDb.instance.addUser(user)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()

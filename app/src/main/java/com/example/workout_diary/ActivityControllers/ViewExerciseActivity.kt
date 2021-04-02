@@ -1,13 +1,12 @@
-package com.example.workout_diary
+package com.example.workout_diary.ActivityControllers
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.w3c.dom.Text
+import com.example.workout_diary.R
+import com.example.workout_diary.Repositories.exerciseRepository
 
-class ViewExercise : AppCompatActivity(){
+class ViewExerciseActivity : AppCompatActivity(){
     companion object {
         const val EXERCISE_ID = "Exercise_id"
     }

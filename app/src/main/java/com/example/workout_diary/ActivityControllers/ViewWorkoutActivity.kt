@@ -1,15 +1,16 @@
-package com.example.workout_diary
+package com.example.workout_diary.ActivityControllers
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.workout_diary.Classes.Exercise
+import com.example.workout_diary.R
+import com.example.workout_diary.Repositories.workoutRepository
 
-class ViewWorkout : AppCompatActivity(){
+class ViewWorkoutActivity : AppCompatActivity(){
     companion object {
         const val WORKOUT_ID = "Workout_id"
     }
@@ -31,8 +32,8 @@ class ViewWorkout : AppCompatActivity(){
 
             listOfExercises.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                 val exerciseItem = listOfExercises.adapter.getItem(position) as Exercise
-                val intent = Intent(view.context, ViewExercise::class.java)
-                intent.putExtra(ViewExercise.EXERCISE_ID, exerciseItem.title)
+                val intent = Intent(view.context, ViewExerciseActivity::class.java)
+                intent.putExtra(ViewExerciseActivity.EXERCISE_ID, exerciseItem.title)
                 startActivity(intent)
             }
         }

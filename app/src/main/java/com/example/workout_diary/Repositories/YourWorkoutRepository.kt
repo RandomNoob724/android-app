@@ -1,5 +1,10 @@
-package com.example.workout_diary
-var yourWorkoutRepository = YourWorkoutRepository().apply {
+package com.example.workout_diary.Repositories
+
+import com.example.workout_diary.FirebaseControllers.FirebaseDb
+import com.example.workout_diary.Classes.YourWorkout
+
+var yourWorkoutRepository = YourWorkoutRepository()
+    .apply {
 
 }
 class YourWorkoutRepository {

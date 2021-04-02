@@ -1,16 +1,15 @@
-package com.example.workout_diary
+package com.example.workout_diary.FirebaseControllers
 
 import android.util.Log
-import com.google.firebase.Timestamp
-import kotlinx.coroutines.delay
+import com.example.workout_diary.Classes.Exercise
+import com.example.workout_diary.Classes.User
+import com.example.workout_diary.Classes.Workout
+import com.example.workout_diary.Classes.YourWorkout
+import com.example.workout_diary.Repositories.exerciseRepository
 import kotlinx.coroutines.tasks.await
-import android.os.Handler
+import com.example.workout_diary.Repositories.yourWorkoutRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.reflect.typeOf
 
 class FirebaseDb {
     companion object{
@@ -79,12 +78,13 @@ class FirebaseDb {
             .get()
             .await()
 
-        val yourWorkoutList: MutableList<YourWorkout> = list.toObjects(YourWorkout::class.java)
+        val yourWorkoutList: MutableList<YourWorkout> = list.toObjects(
+            YourWorkout::class.java)
         Log.d("UsersWorkout", yourWorkoutRepository.yourWorkouts.toString())
         return yourWorkoutList
     }
 
-    fun addWorkoutForUser(workout:YourWorkout){
+    fun addWorkoutForUser(workout: YourWorkout){
         val dbRef = db.collection("userWorkout").document()
             .set(workout)
     }

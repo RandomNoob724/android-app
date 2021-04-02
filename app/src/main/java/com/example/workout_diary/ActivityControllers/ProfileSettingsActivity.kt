@@ -1,15 +1,15 @@
-package com.example.workout_diary
+package com.example.workout_diary.ActivityControllers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_profile_settings.*
-import org.w3c.dom.Text
+import com.example.workout_diary.FirebaseControllers.Authentication
+import com.example.workout_diary.FirebaseControllers.FirebaseDb
+import com.example.workout_diary.R
 
 class ProfileSettingsActivity : AppCompatActivity() {
 

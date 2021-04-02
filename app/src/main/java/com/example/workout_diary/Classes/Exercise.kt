@@ -1,4 +1,4 @@
-package com.example.workout_diary
+package com.example.workout_diary.Classes
 
 data class Exercise(
     var title: String? = "",

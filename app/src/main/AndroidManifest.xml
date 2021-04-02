@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddWorkoutActivity" />
-        <activity android:name=".ProfileFragment" />
+        <activity android:name=".ActivityControllers.AddWorkoutActivity" />
+        <activity android:name=".FragmentControllers.ProfileFragment" />
         <activity android:name=".ConfigureWorkoutActivity" />
         <activity android:name=".YourWeekFragment" />
-        <activity android:name=".YourDayActivity" />
-        <activity android:name=".ViewWorkout" />
-        <activity android:name=".ProfileSettingsActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ViewExercise" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignInActivity"/>
+        <activity android:name=".FragmentControllers.YourDayFragment" />
+        <activity android:name=".ActivityControllers.ViewWorkoutActivity" />
+        <activity android:name=".ActivityControllers.ProfileSettingsActivity" />
+        <activity android:name=".ActivityControllers.MainActivity" />
+        <activity android:name=".ActivityControllers.ViewExerciseActivity" />
+        <activity android:name=".ActivityControllers.SignUpActivity" />
+        <activity android:name=".ActivityControllers.SignInActivity"/>
         <activity
-            android:name=".FetchActivity"
+            android:name=".ActivityControllers.FetchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogInActivity" />
+        <activity android:name=".ActivityControllers.LogInActivity" />
     </application>
 
 </manifest>

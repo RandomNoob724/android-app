@@ -1,4 +1,4 @@
-package com.example.workout_diary
+package com.example.workout_diary.FragmentControllers
 
 import android.content.Context
 import android.content.Intent
@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.CalendarView
-import android.widget.ListView
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.workout_diary.*
+import com.example.workout_diary.ActivityControllers.AddWorkoutActivity
+import com.example.workout_diary.ActivityControllers.ViewWorkoutActivity
+import com.example.workout_diary.Classes.Workout
+import com.example.workout_diary.Repositories.workoutRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,50 +27,34 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_home, container,false)
         val thisWeeksActivities = view.findViewById<ListView>(R.id.main_list_view)
         val calenderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
 
         currentDate = formatter.format(calenderView.date).toString()
-
-        var workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
-
-        thisWeeksActivities.adapter = ArrayAdapter<Workout>(
-            calenderView.context as Context,
-            android.R.layout.simple_list_item_1,
-            android.R.id.text1,
-            workoutList
-        )
+        reloadTodaysWorkoutList(thisWeeksActivities, calenderView.context)
 
         calenderView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             //In order to get the current date you for some reason need to take the year - 1900
             currentDate = formatter.format(Date(year-1900, month, dayOfMonth)).toString()
 
-            //Empty the list before filling it with new data
-            workoutList.clear()
-            workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
+            reloadTodaysWorkoutList(thisWeeksActivities, view.context)
 
-            thisWeeksActivities.adapter = ArrayAdapter<Workout>(
-                view.context as Context,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                workoutList
-            )
             //Change the size of the listview depending on the numbers of elements inside of it.
             setListViewHeightBasedOnItems(thisWeeksActivities)
         }
 
         thisWeeksActivities.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id ->
             val workoutItem = thisWeeksActivities.adapter.getItem(position) as Workout
-            val intent = Intent(context, ViewWorkout::class.java)
-            intent.putExtra(ViewWorkout.WORKOUT_ID, workoutItem.id)
+            val intent = Intent(context, ViewWorkoutActivity::class.java)
+            intent.putExtra(ViewWorkoutActivity.WORKOUT_ID, workoutItem.id)
             startActivity(intent)
         }
 
         val addWorkoutButton = view.findViewById<FloatingActionButton>(R.id.main_add_workout_button)
         addWorkoutButton.setOnClickListener {
-            val intent = Intent(view.context,AddWorkoutActivity::class.java)
+            val intent = Intent(view.context,
+                AddWorkoutActivity::class.java)
             intent.putExtra(AddWorkoutActivity.DATE_FROM_HOME,currentDate)
             startActivity(intent)
         }
@@ -115,5 +101,17 @@ class HomeFragment: Fragment() {
         } else {
             false
         }
+    }
+
+    private fun reloadTodaysWorkoutList(listview: ListView, context: Context){
+        var workoutList = mutableListOf<Workout>()
+        workoutList.clear()
+        workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
+        listview.adapter = ArrayAdapter<Workout>(
+            context,
+            android.R.layout.simple_list_item_1,
+            android.R.id.text1,
+            workoutList
+        )
     }
 }

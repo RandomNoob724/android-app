@@ -1,4 +1,4 @@
-package com.example.workout_diary
+package com.example.workout_diary.ActivityControllers
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,9 @@ import android.widget.EditText
 import android.widget.Toast
 import android.view.View
 import android.widget.*
-import org.w3c.dom.Text
+import com.example.workout_diary.FirebaseControllers.Authentication
+import com.example.workout_diary.FirebaseControllers.FirebaseDb
+import com.example.workout_diary.R
 
 class LogInActivity : AppCompatActivity() {
 
@@ -34,7 +36,9 @@ class LogInActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(inputUsername.text.toString().length <= 0){
                     usernameValidationChecker = false
-                    checkAllValidators(loginButton, errorText, resources.getString(R.string.enterEmail))
+                    checkAllValidators(loginButton, errorText, resources.getString(
+                        R.string.enterEmail
+                    ))
                 }
                 else{
                     usernameValidationChecker = true
@@ -51,7 +55,9 @@ class LogInActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(inputPassword.text.toString().length <= 0){
                     passwordValidationChecker = false
-                    checkAllValidators(loginButton, errorText, resources.getString(R.string.enterPassword))
+                    checkAllValidators(loginButton, errorText, resources.getString(
+                        R.string.enterPassword
+                    ))
                 }
                 else{
                     passwordValidationChecker = true

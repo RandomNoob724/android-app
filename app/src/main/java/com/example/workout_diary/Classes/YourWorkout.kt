@@ -1,4 +1,4 @@
-package com.example.workout_diary
+package com.example.workout_diary.Classes
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore

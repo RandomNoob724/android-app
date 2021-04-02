@@ -1,6 +1,9 @@
-package com.example.workout_diary
+package com.example.workout_diary.Repositories
 
-val exerciseRepository = ExerciseRepository().apply {
+import com.example.workout_diary.Classes.Exercise
+
+val exerciseRepository = ExerciseRepository()
+    .apply {
 
 }
 
