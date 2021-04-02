@@ -3,7 +3,7 @@
     <string name="app_name">workout-diary</string>
     <string name="areYouSureDeleteAccount">Är du säker på att du vill radera kontot?</string>
     <string name="authFailed">Autentisering misslyckad</string>
-    <string name="createAccount">Skapa konta</string>
+    <string name="createAccount">Skapa konto</string>
     <string name="dateFormat">YYYY-mm-dd</string>
     <string name="dateOfBirth">Födelse datum</string>
     <string name="deleteAccount">Radera konto</string>
