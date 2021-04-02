@@ -6,4 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".FetchActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fetch_loading"
+        android:text="@string/app_name"
+        android:textSize="50dp"
+        android:textAlignment="center"/>
+
+    <ProgressBar
+        android:id="@+id/fetch_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

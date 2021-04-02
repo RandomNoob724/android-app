@@ -11,7 +11,9 @@ import kotlinx.coroutines.delay
 import java.sql.Date
 import java.util.*
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import com.google.firebase.auth.FirebaseAuth
 
 import java.io.File
@@ -20,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
@@ -62,6 +65,9 @@ open class SignInActivity : AppCompatActivity() {
         val signInButton = this.findViewById<Button>(R.id.start_signup)
         val logInButton = this.findViewById<Button>(R.id.start_login)
         val signInWithGoogleButton = this.findViewById<Button>(R.id.signin_google)
+        val signInLoadingBar = findViewById<ProgressBar>(R.id.signup_loading)
+
+        signInLoadingBar.setVisibility(View.GONE)
 
         createRequest()
 
@@ -76,6 +82,7 @@ open class SignInActivity : AppCompatActivity() {
 
 
         signInWithGoogleButton.setOnClickListener{
+            signInLoadingBar.setVisibility(View.VISIBLE)
             signInWithGoogle()
         }
     }
@@ -87,7 +94,7 @@ open class SignInActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        val signInLoadingBar = findViewById<ProgressBar>(R.id.signup_loading)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -96,7 +103,9 @@ open class SignInActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
+                signInLoadingBar.setVisibility(View.GONE)
                 // Google Sign In failed, update UI appropriately
+                Toast.makeText(this, "Google Sign in failed, contact us for more information", Toast.LENGTH_LONG).show()
                 Log.w("GoogleAuth", "Google sign in failed", e)
             }
         }
@@ -108,6 +117,7 @@ open class SignInActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(this, "Sign in successful", Toast.LENGTH_LONG).show()
                     Log.d("GoogleAuth", "signInWithCredential:success")
                     val user = User(email = auth.currentUser.email, authUserId = auth.currentUser.uid)
                     FirebaseDb.instance.addUser(user)
@@ -115,6 +125,7 @@ open class SignInActivity : AppCompatActivity() {
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
+                    Toast.makeText(this, "Google Sign in failed, contact us for more information", Toast.LENGTH_LONG).show()
                     Log.w("GoogleAuth", "signInWithCredential:failure", task.exception)
                 }
             }

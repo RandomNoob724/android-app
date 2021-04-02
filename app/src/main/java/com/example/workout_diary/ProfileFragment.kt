@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
         return view
     }
 
-    override fun onStart() {
+/*    override fun onStart() {
         super.onStart()
         val userInfo = Authentication.instance.getUserInfo()
 
@@ -85,13 +85,13 @@ class ProfileFragment : Fragment() {
 
         if(userInfo != null){
             username?.text = userInfo.username
-            birthdate?.text = "Date of birth: " + userInfo.dateOfBirth
-            weight?.text = "Weight: " + userInfo.weight + " kg"
-            goalWeight?.text = "Goal weight: " + userInfo.goalWeight + " kg"
-            name?.text = "Name: " + userInfo.firstName + " " + userInfo.lastName
-            height?.text = "Height: " + userInfo.height + " cm"
-            gender?.text = "Gender: " + userInfo.gender
+            birthdate?.text = "${getString(R.string.dateOfBirth)}: " + userInfo.dateOfBirth
+            weight?.text = "${getString(R.string.weight)}: " + userInfo.weight + " kg"
+            goalWeight?.text = "${getString(R.string.goalWeight)}: " + userInfo.goalWeight + " kg"
+            name?.text = "${getString(R.string.name)}: " + userInfo.firstName + " " + userInfo.lastName
+            height?.text = "${getString(R.string.height)}: " + userInfo.height + " cm"
+            gender?.text = "${getString(R.string.gender)}: " + userInfo.gender
         }
     }
-
+*/
 }

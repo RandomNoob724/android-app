@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".SignInActivity">
 
+    <ProgressBar
+        android:id="@+id/signup_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <ImageView
         android:id="@+id/start_imageView"

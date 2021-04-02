@@ -3,7 +3,6 @@ package com.example.workout_diary
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import android.widget.CalendarView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,20 +28,20 @@ class HomeFragment: Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container,false)
         val thisWeeksActivities = view.findViewById<ListView>(R.id.main_list_view)
-        val calanderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
+        val calenderView = view.findViewById<CalendarView>(R.id.main_calendar_view)
 
-        currentDate = formatter.format(calanderView.date).toString()
+        currentDate = formatter.format(calenderView.date).toString()
 
         var workoutList = workoutRepository.getWorkoutsFromYourWorkoutsOnDate(currentDate)
 
         thisWeeksActivities.adapter = ArrayAdapter<Workout>(
-            calanderView.context as Context,
+            calenderView.context as Context,
             android.R.layout.simple_list_item_1,
             android.R.id.text1,
             workoutList
         )
 
-        calanderView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        calenderView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             //In order to get the current date you for some reason need to take the year - 1900
             currentDate = formatter.format(Date(year-1900, month, dayOfMonth)).toString()
 

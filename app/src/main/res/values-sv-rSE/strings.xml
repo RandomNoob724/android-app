@@ -12,7 +12,7 @@
     <string name="firstName">Förnamn</string>
     <string name="forgotPassword">Glömt lösenrodet</string>
     <string name="gender">Kön</string>
-    <string name="goalWeight">Mål vikt</string>
+    <string name="goalWeight">Målvikt</string>
     <string name="goalWeightDigits">Mål vikt kan bara skrivas med siffror</string>
     <string name="height">Höjd</string>
     <string name="heightDigits">Höjd kan bara skrivas med siffror</string>
@@ -43,4 +43,12 @@
     <string name="SignInGoogle">Registrera med google</string>
     <string name="enterEmail">Du måste skriva in en E-mail</string>
     <string name="enterPassword">Du måste skriva en ett lösenord</string>
+    <string name="profile">Profil</string>
+    <string name="yourDay">Din Dag</string>
+    <string name="logout">Logga Ut</string>
+    <string name="home">Hem</string>
+    <string name="settings">Inställningar</string>
+    <string name="yourWeek">Din Vecka</string>
+    <string name="calenderView">Kalender Vy</string>
+    <string name="todaysWorkouts">Dagens Träning</string>
 </resources>

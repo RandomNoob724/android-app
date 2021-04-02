@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Todays workout"
+        android:text="@string/todaysWorkouts"
         android:paddingTop="60dp"
         android:gravity="center"
         android:id="@+id/nav_your_week_title"

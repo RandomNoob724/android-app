@@ -5,22 +5,22 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_plus_24px"
-            android:title="Home"/>
+            android:title="@string/home"/>
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_plus_24px"
-            android:title="Profile"/>
+            android:title="@string/profile"/>
         <item
             android:id="@+id/nav_your_week"
             android:icon="@drawable/ic_plus_24px"
-            android:title="Your day"/>
+            android:title="@string/yourDay"/>
     </group>
-    <item android:title="Settings">
+    <item android:title="@string/settings">
         <menu>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_plus_24px"
-                android:title="Logout"/>
+                android:title="@string/logout"/>
         </menu>
     </item>
 </menu>
